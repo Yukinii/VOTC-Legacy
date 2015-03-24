@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using VOTCClient.Core.External.Chatbot.Classes;
+
 /*
     This file is part of VOTC.
 

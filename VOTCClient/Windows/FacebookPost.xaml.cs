@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using VOTCClient.Core;
+
 /*
     This file is part of VOTC.
 

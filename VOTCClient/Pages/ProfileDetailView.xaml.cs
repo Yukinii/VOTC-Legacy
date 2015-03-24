@@ -2,6 +2,7 @@
 using System.Windows;
 using VOTCClient.Core;
 using VOTCClient.Core.Helpers;
+
 /*
     This file is part of VOTC.
 

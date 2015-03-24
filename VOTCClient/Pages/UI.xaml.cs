@@ -13,9 +13,11 @@ using TweetSharp;
 using VOTCClient.Core;
 using VOTCClient.Core.Extensions;
 using VOTCClient.Core.External.Faroo;
+using VOTCClient.Core.Hardware;
 using VOTCClient.Core.Network;
 using VOTCClient.Core.Speech;
 using VOTCClient.Windows;
+
 /*
     This file is part of VOTC.
 
@@ -118,6 +120,7 @@ namespace VOTCClient.Pages
 
         private async void page_Loaded(object sender, RoutedEventArgs e)
         {
+            await HardwareInterface.Initialize();
             DisplayCmd("Double click any item in here to read its content");
             DisplayCmd("Go to 'File -> Profiles' to load a profile!");
             DisplayCmd("If you're new, go to the store and download one!");
@@ -246,6 +249,11 @@ namespace VOTCClient.Pages
         {
             var box = new Form1();
             box.Show();
+        }
+
+        private async void ThermalInterfaceTest_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(await CPU.GetTempAsync() + "°C");
         }
     }
 }

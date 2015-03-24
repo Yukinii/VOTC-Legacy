@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 using VOTCClient.Core.Speech;
 using WMPLib;
+
 /*
     This file is part of VOTC.
 

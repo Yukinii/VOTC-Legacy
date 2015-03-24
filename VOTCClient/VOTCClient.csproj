@@ -35,7 +35,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -45,6 +45,7 @@
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -166,6 +167,10 @@
     <Compile Include="Core\External\Chatbot\Classes\Cleverbot.cs" />
     <Compile Include="Core\External\Chatbot\Classes\Pandorabots.cs" />
     <Compile Include="Core\External\Chatbot\Classes\Utils.cs" />
+    <Compile Include="Core\Hardware\RAM.cs" />
+    <Compile Include="Core\Hardware\CPU.cs" />
+    <Compile Include="Core\Hardware\GPU.cs" />
+    <Compile Include="Core\Hardware\HardwareInterface.cs" />
     <Compile Include="Core\Helpers\VoiceCommand.cs" />
     <Compile Include="Core\Hook\KeyboardHook.cs" />
     <Compile Include="Core\Network\Tracking.cs" />
@@ -480,9 +485,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Hardware\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

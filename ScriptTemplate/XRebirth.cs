@@ -3,6 +3,7 @@ using System.Windows.Input;
 using VOTCClient.Core;
 using VOTCClient.Core.Helpers;
 using VOTCClient.Core.Scripts;
+
 /*
     This file is part of VOTC.
 

@@ -7,6 +7,7 @@ using VOTCClient.Core.Extensions;
 using VOTCClient.Core.Speech;
 using Keyboard = InputManager.Keyboard;
 using Mouse = InputManager.Mouse;
+
 /*
     This file is part of VOTC.
 

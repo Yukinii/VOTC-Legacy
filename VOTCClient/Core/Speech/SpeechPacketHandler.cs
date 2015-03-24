@@ -3,6 +3,7 @@ using System.Speech.Recognition;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using VOTCClient.Core.External.Chatbot;
+
 /*
     This file is part of VOTC.
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Newtonsoft.Json;
 using VOTCClient.Core.Speech;
+
 /*
     This file is part of VOTC.
 

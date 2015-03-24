@@ -4,6 +4,7 @@ using VOTCClient.Core;
 using VOTCClient.Core.Helpers;
 using VOTCClient.Core.Scripts;
 using Mouse = InputManager.Mouse;
+
 /*
     This file is part of VOTC.
 

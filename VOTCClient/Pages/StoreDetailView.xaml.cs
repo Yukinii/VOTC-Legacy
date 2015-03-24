@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
 using VOTCClient.Core;
+
 /*
     This file is part of VOTC.
 

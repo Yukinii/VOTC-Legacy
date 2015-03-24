@@ -20,6 +20,7 @@
                 <MenuItem Header="Joystick Test" Click="Joystick_Click"/>
                 <MenuItem Header="Chat Test" Click="ChatTest_Click"/>
                 <MenuItem Header="Overlay Test" Click="OverlayTest_Click"/>
+                <MenuItem Header="ThermalInterface" Click="ThermalInterfaceTest_Click"/>
             </MenuItem>
             <MenuItem Header="Social..">
                 <MenuItem Header="Facebook" Click="Facebook_Click"/>

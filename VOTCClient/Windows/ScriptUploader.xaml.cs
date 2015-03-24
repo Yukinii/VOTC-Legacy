@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using VOTCClient.Pages;
+
 /*
     This file is part of VOTC.
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Timers;
 using System.Windows;
 using SlimDX.DirectInput;
+
 /*
     This file is part of VOTC.
 

@@ -17,6 +17,7 @@ using VOTCClient.Core;
 using VOTCClient.Core.External.Azure;
 using VOTCClient.Core.IO;
 using Image = System.Drawing.Image;
+
 /*
     This file is part of VOTC.
 

@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using VOTCClient.Core.IO;
 using VOTCClient.Core.Speech;
+
 /*
     This file is part of VOTC.
 

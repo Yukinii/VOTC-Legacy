@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using VOTCClient.Core;
 using VOTCClient.Pages;
+
 /*
     This file is part of VOTC.
 

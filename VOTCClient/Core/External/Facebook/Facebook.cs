@@ -1,5 +1,6 @@
 ﻿using System;
 using VOTCClient.Core.Speech;
+
 /*
     This file is part of VOTC.
 

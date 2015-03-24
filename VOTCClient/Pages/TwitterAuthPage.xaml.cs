@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using TweetSharp;
 using VOTCClient.Core;
+
 /*
     This file is part of VOTC.
 

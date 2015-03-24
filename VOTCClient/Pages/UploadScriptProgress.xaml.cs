@@ -3,6 +3,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Threading;
 using VOTCClient.Core;
+
 /*
     This file is part of VOTC.
 

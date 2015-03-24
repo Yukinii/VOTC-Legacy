@@ -7,6 +7,7 @@ using SlimDX;
 using SlimDX.Direct3D9;
 using VOTCClient.Core.Extensions;
 using Font = SlimDX.Direct3D9.Font;
+
 /*
     This file is part of VOTC.
 

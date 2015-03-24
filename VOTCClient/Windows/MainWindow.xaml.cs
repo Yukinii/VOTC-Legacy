@@ -19,6 +19,7 @@ using VOTCClient.Pages;
 using Keyboard = InputManager.Keyboard;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MessageBox = System.Windows.MessageBox;
+
 /*
     This file is part of VOTC.
 
