@@ -1,0 +1,80 @@
+﻿using System;
+using System.Collections.Concurrent;
+using System.IO;
+using System.Threading;
+using System.Windows.Forms;
+using VOTCClient.Core.Network;
+
+namespace VOTCClient.Core.IO
+{
+    internal static class IoQueue
+    {
+        static readonly ManualResetEvent Mre = new ManualResetEvent(false);
+        static readonly ConcurrentQueue<string> PendingWrites = new ConcurrentQueue<string>();
+        internal static Logger L;
+
+        public static void Add(string message)
+        {
+            if (L == null)
+                L = new Logger();
+            if (message == null) return;
+            PendingWrites.Enqueue(message);
+            Mre.Set();
+        }
+        public static void Add(Exception message)
+        {
+            if (L == null)
+                L = new Logger();
+            if (message == null) return;
+            PendingWrites.Enqueue(message.StackTrace);
+            PendingWrites.Enqueue(message.Source);
+            PendingWrites.Enqueue(message.Message);
+            Mre.Set();
+        }
+        private static string TakeJob()
+        {
+            if (L == null)
+                L = new Logger();
+            string message;
+            PendingWrites.TryDequeue(out message);
+            if (PendingWrites.IsEmpty)
+                Mre.Reset();
+            if (Kernel.Tracking)
+                Tracking.Add("Error: "+message);
+            return message;
+        }
+        internal static void Abort() => L.IoThread.Abort();
+
+        internal class Logger
+        {
+            private static StreamWriter _writer;
+            public readonly Thread IoThread = new Thread(BeginWrite);
+            internal Logger()
+            {
+                if (_writer != null)
+                    return;
+
+                _writer = !File.Exists(Application.StartupPath + "Log.txt") ? new StreamWriter(File.Create("Log.txt")) : new StreamWriter(File.Open(Application.StartupPath + "Log.txt",FileMode.Append));
+                _writer.BaseStream.Position = _writer.BaseStream.Length;
+                _writer.AutoFlush = true;
+                IoThread.IsBackground = true;
+                IoThread.Start();
+            }
+            private static void BeginWrite()
+            {
+                while (Kernel.KeepThreadsRunning)
+                {
+                    Mre.WaitOne();
+                    while (!_writer.BaseStream.CanWrite)
+                    {
+                        if (!Kernel.KeepThreadsRunning)
+                            break;
+                        Thread.Sleep(100);
+                    }
+                    if (_writer.BaseStream.CanWrite)
+                        _writer.WriteLine(TakeJob());
+                }
+            }
+        }
+    }
+}

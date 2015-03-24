@@ -1,0 +1,31 @@
+﻿<Window x:Class="VOTCClient.Windows.BuiltInCommands"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="BuiltInCommands" Height="300" Width="680.899">
+    <Grid>
+        <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <StackPanel Name="Panel">
+                <Label FontSize="18" FontStyle="Oblique">Generic commands</Label>
+                <Label>"activate push to talk" - Will activate push to talk mode.</Label>
+                <Label>"deactivate push to talk" - Will deactivate push to talk mode.</Label>
+                <Label>"clear" - Will clear the command list</Label>
+                <Label>"Lock" - Will deactivate voice commands. Only "Unlock" will work</Label>
+                <Label>"Unlock" - Activates voice commands again.</Label>
+                <Label FontSize="18" FontStyle="Oblique">Music commands</Label>
+                <Label>"Play Music" - Starts playing your "My Music" folder.</Label>
+                <Label>"Pause Music" - Waits for resume.</Label>
+                <Label>"Resume Music" - Resumes playing.</Label>
+                <Label>"Next Track" - Shuffles and plays the next track.</Label>
+                <Label>"Stop Music" - Stops playing music.</Label>
+                <Label FontSize="18" FontStyle="Oblique">Social commands | currently deactivated or broken</Label>
+                <Label>"Facebook Post" - Brings up the Post form, where you can enter text.</Label>
+                <Label>"Post" - Posts what you just entered in the box to facebook.</Label>
+                <Label>"Tweet" - Shows a form to enter your tweet. Say tweet again to send it.</Label>
+                <Label FontSize="18" FontStyle="Oblique">Easter Eggs</Label>
+                <Label>"I accept lord gaben into my wallet" - Opens Gaben.TV in your browser.</Label>
+                <Label>Type the Konami Code on the UI and you'll hear "Level up"</Label>
+                </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</Window>

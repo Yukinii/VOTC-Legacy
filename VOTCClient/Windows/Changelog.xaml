@@ -1,0 +1,15 @@
+﻿<Window x:Class="VOTCClient.Windows.Changelog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Changelog" Height="300" Width="300">
+    <Grid>
+        <RichTextBox IsReadOnly="True" Name="Text" HorizontalAlignment="Left" Height="269" VerticalAlignment="Top" Width="292">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+
+    </Grid>
+</Window>

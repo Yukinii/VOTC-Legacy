@@ -1,0 +1,233 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+InputManager
+</name>
+</assembly>
+<members>
+<member name="T:InputManager.Keyboard">
+ <summary>
+ Provides methods to send keyboard input that also works in DirectX games.
+ </summary>
+</member>
+<member name="T:InputManager.Keyboard.MapVirtualKeyMapTypes">
+ <summary>
+ The set of valid MapTypes used in MapVirtualKey
+ </summary>
+</member>
+<member name="F:InputManager.Keyboard.MapVirtualKeyMapTypes.MapvkVkToVsc">
+ <summary>
+ uCode is a virtual-key code and is translated into a scan code.
+ If it is a virtual-key code that does not distinguish between left- and
+ right-hand keys, the left-hand scan code is returned.
+ If there is no translation, the function returns 0.
+ </summary>
+</member>
+<member name="F:InputManager.Keyboard.MapVirtualKeyMapTypes.MapvkVscToVk">
+ <summary>
+ uCode is a scan code and is translated into a virtual-key code that
+ does not distinguish between left- and right-hand keys. If there is no
+ translation, the function returns 0.
+ </summary>
+</member>
+<member name="F:InputManager.Keyboard.MapVirtualKeyMapTypes.MapvkVkToChar">
+ <summary>
+ uCode is a virtual-key code and is translated into an unshifted
+ character value in the low-order word of the return value. Dead keys (diacritics)
+ are indicated by setting the top bit of the return value. If there is no
+ translation, the function returns 0.
+ </summary>
+</member>
+<member name="F:InputManager.Keyboard.MapVirtualKeyMapTypes.MapvkVscToVkEx">
+ <summary>
+ Windows NT/2000/XP: uCode is a scan code and is translated into a
+ virtual-key code that distinguishes between left- and right-hand keys. If
+ there is no translation, the function returns 0.
+ </summary>
+</member>
+<member name="F:InputManager.Keyboard.MapVirtualKeyMapTypes.MapvkVkToVscEx">
+ <summary>
+ Not currently documented
+ </summary>
+</member>
+<member name="M:InputManager.Keyboard.ShortcutKeys(System.Windows.Forms.Keys[],System.Int32)">
+ <summary>
+ Sends shortcut keys (key down and up) signals.
+ </summary>
+ <param name="kCode">The array of keys to send as a shortcut.</param>
+ <param name="delay">The delay in milliseconds between the key down and up events.</param>
+</member>
+<member name="M:InputManager.Keyboard.KeyDown(System.Windows.Forms.Keys)">
+ <summary>
+ Sends a key down signal.
+ </summary>
+ <param name="kCode">The virtual keycode to send.</param>
+</member>
+<member name="M:InputManager.Keyboard.KeyUp(System.Windows.Forms.Keys)">
+ <summary>
+ Sends a key up signal.
+ </summary>
+ <param name="kCode">The virtual keycode to send.</param>
+</member>
+<member name="M:InputManager.Keyboard.KeyPress(System.Windows.Forms.Keys,System.Int32)">
+ <summary>
+ Sends a key press signal (key down and up).
+ </summary>
+ <param name="kCode">The virtual keycode to send.</param>
+ <param name="delay">The delay to set between the key down and up commands.</param>
+</member>
+<member name="T:InputManager.VirtualKeyboard">
+ <summary>
+ Provides methods to send keyboard input. The keys are being sent virtually and cannot be used with DirectX.
+ </summary>
+</member>
+<member name="M:InputManager.VirtualKeyboard.ShortcutKeys(System.Windows.Forms.Keys[],System.Int32)">
+ <summary>
+ Sends shortcut keys (key down and up) signals.
+ </summary>
+ <param name="kCode">The array of keys to send as a shortcut.</param>
+ <param name="delay">The delay in milliseconds between the key down and up events.</param>
+</member>
+<member name="M:InputManager.VirtualKeyboard.KeyDown(System.Windows.Forms.Keys)">
+ <summary>
+ Sends a key down signal.
+ </summary>
+ <param name="kCode">The virtual keycode to send.</param>
+</member>
+<member name="M:InputManager.VirtualKeyboard.KeyUp(System.Windows.Forms.Keys)">
+ <summary>
+ Sends a key up signal.
+ </summary>
+ <param name="kCode">The virtual keycode to send.</param>
+</member>
+<member name="M:InputManager.VirtualKeyboard.KeyPress(System.Windows.Forms.Keys,System.Int32)">
+ <summary>
+ Sends a key press signal (key down and up).
+ </summary>
+ <param name="kCode">The virtual key code to send.</param>
+ <param name="delay">The delay to set between the key down and up commands.</param>
+</member>
+<member name="T:InputManager.Mouse">
+ <summary>
+ Provides methods to send mouse input that also works in DirectX games.
+ </summary>
+</member>
+<member name="P:InputManager.Mouse.IsLeftHanded">
+ <summary>
+ Returns true if mouse buttons are swapped
+ </summary>
+</member>
+<member name="M:InputManager.Mouse.SendButton(InputManager.Mouse.MouseButtons)">
+ <summary>
+ Sends a mouse button signal. To send a scroll use the Scroll method.
+ </summary>
+ <param name="mButton">The button to send.</param>
+</member>
+<member name="M:InputManager.Mouse.PressButton(InputManager.Mouse.MouseKeys,System.Int32)">
+ <summary>
+ Sends a mouse press signal (down and up).
+ </summary>
+ <param name="mKey">The key to press.</param>
+ <param name="delay">The delay to set between the events.</param>
+</member>
+<member name="M:InputManager.Mouse.ButtonDown(InputManager.Mouse.MouseKeys)">
+ <summary>
+ Send a mouse button down signal.
+ </summary>
+ <param name="mKey">The mouse key to send as mouse button down.</param>
+</member>
+<member name="M:InputManager.Mouse.ButtonUp(InputManager.Mouse.MouseKeys)">
+ <summary>
+ Send a mouse button up signal.
+ </summary>
+ <param name="mKey">The mouse key to send as mouse button up.</param>
+</member>
+<member name="M:InputManager.Mouse.Move(System.Int32,System.Int32)">
+ <summary>
+ Moves the mouse to a certain location on the screen.
+ </summary>
+ <param name="x">The x location to move the mouse.</param>
+ <param name="y">The y location to move the mouse</param>
+</member>
+<member name="M:InputManager.Mouse.MoveRelative(System.Int32,System.Int32)">
+ <summary>
+ Moves the mouse to a location relative to the current one.
+ </summary>
+ <param name="x">The amount of pixels to move the mouse on the x axis.</param>
+ <param name="y">The amount of pixels to move the mouse on the y axis.</param>
+</member>
+<member name="M:InputManager.Mouse.Scroll(InputManager.Mouse.ScrollDirection)">
+ <summary>
+ Sends a scroll signal with a specific direction to scroll.
+ </summary>
+ <param name="direction">The direction to scroll.</param>
+</member>
+<member name="T:InputManager.KeyboardHook">
+ <summary>
+ Creates a low level keyboard hook.
+ </summary>
+</member>
+<member name="M:InputManager.KeyboardHook.KeyboardProc(System.Int32,System.Int32,InputManager.KeyboardHook.Kbdllhookstruct@)">
+ <summary>
+ Processes all keyboard events ...
+ </summary>
+</member>
+<member name="M:InputManager.KeyboardHook.InstallHook">
+ <summary>
+ Installs low level keyboard hook. This hook raises events every time a keyboard event occured.
+ </summary>
+</member>
+<member name="M:InputManager.KeyboardHook.UninstallHook">
+ <summary>
+ Uninstalls the low level keyboard hook. Hooks events are stopped from being raised.
+ </summary>
+</member>
+<member name="M:InputManager.KeyboardHook.Finalize">
+ <summary>
+ Uninstalls the low level keyboard hook and frees up the resources.
+ </summary>
+</member>
+<member name="T:InputManager.MouseHook">
+ <summary>
+ Creates a low level mouse hook.
+ </summary>
+</member>
+<member name="M:InputManager.MouseHook.MouseProc(System.Int32,System.Int32,InputManager.MouseHook.Msllhookstruct@)">
+ <summary>
+ Processes all mouse events ...
+ </summary>
+</member>
+<member name="M:InputManager.MouseHook.InstallHook">
+ <summary>
+ Installs low level mouse hook. This hook raises events every time a mouse event occured.
+ </summary>
+</member>
+<member name="M:InputManager.MouseHook.UninstallHook">
+ <summary>
+ Uninstalls the low level mouse hook. Hooks events are stopped from being raised.
+ </summary>
+</member>
+<member name="M:InputManager.MouseHook.Finalize">
+ <summary>
+ Uninstalls the low level mouse hook and frees up the resources.
+ </summary>
+</member>
+<member name="T:InputManager.My_Project.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:InputManager.My_Project.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:InputManager.My_Project.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+</members>
+</doc>

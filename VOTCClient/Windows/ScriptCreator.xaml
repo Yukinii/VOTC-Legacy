@@ -1,0 +1,34 @@
+﻿<Window x:Class="VOTCClient.Windows.ScriptCreator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="ScriptCreator" Height="480" Width="854">
+    <Grid>
+        <TextBox Name="PreviewBox" HorizontalAlignment="Left" Height="404" Margin="358,10,0,0" TextWrapping="Wrap" Text="using System.Threading.Tasks;&#xD;&#xA;using System.Windows.Input;&#xD;&#xA;using VOTCClient.Core;&#xD;&#xA;using VOTCClient.Core.Helpers;&#xD;&#xA;using VOTCClient.Core.Scripts;&#xD;&#xA;using Mouse = InputManager.Mouse;&#xD;&#xA;&#xD;&#xA;namespace ScriptTemplate&#xD;&#xA;{&#xD;&#xA;    public class YourScriptName&#xD;&#xA;    {&#xD;&#xA;        public static ScriptInfo SetUp()&#xD;&#xA;        {&#xD;&#xA;            Kernel.UI.DisplayCmd(&quot;Script loaded!&quot;, false);&#xD;&#xA;&#xD;&#xA;        &#xD;&#xA;            var Info = new ScriptInfo&#xD;&#xA;            {&#xD;&#xA;                ScriptName = &quot;Arma3 Basic 1.0&quot;,&#xD;&#xA;                Author = &quot;Your Name here.&quot;,&#xD;&#xA;                Description = &quot;script for basic functionality.&quot;,&#xD;&#xA;                FriendlyGameName = &quot;ARMA 3&quot;,&#xD;&#xA;                Commands = CommandStorage.AllCommands,&#xD;&#xA;                ProcessName = &quot;arma3&quot;,&#xD;&#xA;                RequireProcessInForeground = true&#xD;&#xA;            };&#xD;&#xA;            return Info;&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        public static async Task&lt;bool&gt; IncommingVoicePacket(string VoicePacket)&#xD;&#xA;        {&#xD;&#xA;            return await VoiceCommand.ExecuteCommand(VoicePacket);&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;}" VerticalAlignment="Top" Width="478"/>
+        <Button Name="SaveButton" Content="Save Script" HorizontalAlignment="Left" Margin="761,424,0,0" VerticalAlignment="Top" Width="75"/>
+        <Separator HorizontalAlignment="Left" Height="21" Margin="113,10,0,0" VerticalAlignment="Top" Width="245"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Keyboard Control" VerticalAlignment="Top"/>
+        <TextBox Name="UserSaysBox" HorizontalAlignment="Left" Height="23" Margin="113,36,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="231"/>
+        <TextBlock HorizontalAlignment="Left" Margin="15,37,0,0" TextWrapping="Wrap" Text="User says:" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="15,77,0,0" TextWrapping="Wrap" Text="Keys to Press:" VerticalAlignment="Top"/>
+        <TextBox Name="KeyboardKeysPressBox" HorizontalAlignment="Left" Height="23" Margin="113,76,0,0" TextWrapping="Wrap" Text="Press key(s)" VerticalAlignment="Top" Width="231"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Hold for (ms)"/>
+        <TextBox Name="TtsFeedback" HorizontalAlignment="Left" Height="23" Margin="113,221,0,0" TextWrapping="Wrap" Text="Text to speech feedback" VerticalAlignment="Top" Width="231"/>
+        <TextBlock HorizontalAlignment="Left" Margin="15,222,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="VOTC "/><Run Text="says:"/></TextBlock>
+        <TextBox Name="DurationBox" HorizontalAlignment="Left" Height="23" Margin="113,193,0,0" TextWrapping="Wrap" Text="Up to 5000 or KeepDown or Release" VerticalAlignment="Top" Width="231"/>
+        <TextBox HorizontalAlignment="Left" Height="71" Margin="17,117,0,0" TextWrapping="Wrap" Text="You can hold the key down for up to 5000 milliseconds. If you want to keep it down longer use &quot;KeepDown&quot; and define a Command that has &quot;Release&quot; set so it can be released by the user manually." VerticalAlignment="Top" Width="320"/>
+        <Button Name="AddKeyboardCommandButton" Content="Create command and send over to the preview ----------&gt;" HorizontalAlignment="Left" Margin="15,253,0,0" VerticalAlignment="Top" Width="322"/>
+        <Separator HorizontalAlignment="Left" Height="21" Margin="113,289,0,0" VerticalAlignment="Top" Width="245"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Mouse "/><Run Text="Control"/></TextBlock>
+        <TextBox Name="UserCommandMouseBox" HorizontalAlignment="Left" Height="23" Margin="113,312,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="231"/>
+        <TextBlock HorizontalAlignment="Left" Margin="15,313,0,0" TextWrapping="Wrap" Text="User says:" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="15,353,0,0" TextWrapping="Wrap" Text="Keys to Press:" VerticalAlignment="Top"/>
+        <TextBox Name="MouseKeysPressBox" HorizontalAlignment="Left" Height="23" Margin="113,352,0,0" TextWrapping="Wrap" Text="Press key(s)" VerticalAlignment="Top" Width="231"/>
+        <TextBox Name="TtsFeedbackMouse" HorizontalAlignment="Left" Height="23" Margin="113,387,0,0" TextWrapping="Wrap" Text="Text to speech feedback" VerticalAlignment="Top" Width="231"/>
+        <TextBlock HorizontalAlignment="Left" Margin="15,388,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="VOTC "/><Run Text="says:"/></TextBlock>
+        <Button Name="AddMouseCommand" Content="Create command and send over to the preview ----------&gt;" HorizontalAlignment="Left" Margin="15,419,0,0" VerticalAlignment="Top" Width="322"/>
+
+    </Grid>
+</Window>

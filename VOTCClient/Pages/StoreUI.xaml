@@ -1,0 +1,47 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:VOTCClient.Pages"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      x:Class="VOTCClient.Pages.StoreUi"
+      mc:Ignorable="d" 
+      d:DesignHeight="563" d:DesignWidth="1000"
+      Loaded="Page_Loaded" x:ClassModifier="internal">
+
+
+    <Grid Name="Maingrid">
+        <Grid.Resources>
+            <DataTemplate x:Key="ScriptTemplate" DataType="{x:Type local:StoreItem}">
+                <StackPanel Loaded="StoreItemLoaded">
+                    <Ellipse RenderOptions.BitmapScalingMode="Fant" Fill="{Binding Path=Icon}" HorizontalAlignment="Center" Width="128" Height="128" Margin="32,32,32,24"/>
+                    <TextBlock Text="{Binding Path=Title}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </DataTemplate>
+        </Grid.Resources>
+        <ListBox Name="ListBox" Margin="0,26,0,0" SelectionChanged="ListBox_SelectionChanged" HorizontalAlignment="Left" Width="153">
+            <ListBoxItem HorizontalAlignment="Center">Featured</ListBoxItem>
+            <ListBoxItem HorizontalAlignment="Center">Most Downloaded</ListBoxItem>
+            <ListBoxItem HorizontalAlignment="Center">Best Rated</ListBoxItem>
+            <ListBoxItem HorizontalAlignment="Center" Content="Newest"/>
+            <ListBoxItem HorizontalAlignment="Center">All Scripts</ListBoxItem>
+            <ListBoxItem HorizontalAlignment="Center">Potentially Harmful</ListBoxItem>
+        </ListBox>
+        <xctk:WatermarkTextBox Name="SearchBox" HorizontalAlignment="Left" Height="26" Text="" VerticalAlignment="Top" Width="153" TextAlignment="Center" FontSize="13.333" FontFamily="Segoe WP SemiLight">
+            <xctk:WatermarkTextBox.Watermark>
+                <TextBlock Text="Search(Not Implemented)"/>
+            </xctk:WatermarkTextBox.Watermark>
+        </xctk:WatermarkTextBox>
+
+        <xctk:BusyIndicator Name="BusyIndicator" IsBusy="True" BusyContent="Chanting spells to summon the holy data!">
+            <ListBox Name="Scripts" Margin="153,0,0,0" ItemTemplate="{StaticResource ScriptTemplate}" MouseDoubleClick="scripts_MouseDoubleClick">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}" ItemWidth="{Binding (ListView.View).ItemWidth, RelativeSource={RelativeSource AncestorType=ListView}}" MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}" ItemHeight="{Binding (ListView.View).ItemHeight, RelativeSource={RelativeSource AncestorType=ListView}}" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </xctk:BusyIndicator>
+    </Grid>
+</Page>

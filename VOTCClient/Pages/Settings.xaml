@@ -1,0 +1,84 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      x:Class="VOTCClient.Pages.Settings"
+      mc:Ignorable="d"
+      Title="Settings" Height="300" Width="700" Loaded="Page_Loaded">
+
+    <Grid>
+        <Label  Content="Recognitiontreshold:" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top"/>
+        <Label Name="Confidencypercentage" Content="Label" HorizontalAlignment="Left" Margin="186,20,0,0" VerticalAlignment="Top"/>
+        <Slider Value="-1" Name="Slider1" Margin="10,43,0,0" VerticalAlignment="Top" Maximum="100" Minimum="1" ValueChanged="slider1_ValueChanged" HorizontalAlignment="Left" Width="214"/>
+        <Label Content="Custom Sound Volume:" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top"/>
+        <Label Name="Volumepercentage" Content="Label" HorizontalAlignment="Left" Margin="186,66,0,0" VerticalAlignment="Top"/>
+        <Slider Value="-1" Name="Slider2" Margin="10,92,0,0" VerticalAlignment="Top" Maximum="100" Minimum="1" ValueChanged="slider2_ValueChanged" HorizontalAlignment="Left" Width="214"/>
+        <CheckBox Name="UnknownCommandsCheckBox" Content="Display unknown commands" HorizontalAlignment="Left" Margin="270,85,0,0" VerticalAlignment="Top" Width="176" Checked="checkBox_Checked" Unchecked="checkBox_Checked"/>
+        <CheckBox Name="NaturalSpeakingCheckBox" Content="Enable Natural Speaking" HorizontalAlignment="Left" Margin="270,65,0,0" VerticalAlignment="Top" Width="176" Checked="NaturalSpeakingCheckBoxChecked" Unchecked="NaturalSpeakingCheckBoxChecked"/>
+        <CheckBox Name="TextToSpeechCheckBox" Content="Use Text To Speech" HorizontalAlignment="Left" Margin="10,218,0,0" VerticalAlignment="Top" Width="176" Checked="TextToSpeechCheckBox_Checked" Unchecked="TextToSpeechCheckBox_Checked"/>
+        <CheckBox Name="DebugModeCheckBox" Content="Activate Debug Mode" HorizontalAlignment="Left" Margin="270,26,0,0" VerticalAlignment="Top" Width="176" Checked="DebugModeCheckBox_OnChecked" Unchecked="DebugModeCheckBox_OnChecked"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,239,0,0" TextWrapping="Wrap" Text="Select the Voice you want to use" VerticalAlignment="Top" Width="272"/>
+        <ComboBox Name="VoiceBox" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Width="214" SelectionChanged="voices_SelectionChanged_1" Height="30"/>
+        <CheckBox Name="DeveloperModeCheckBox" Content="Activate Developer Mode" HorizontalAlignment="Left" Margin="270,46,0,0" VerticalAlignment="Top" Width="176" Checked="DevModeCheckBox_OnChecked" Unchecked="DevModeCheckBox_OnChecked" Height="19"/>
+        <Label Content="TTS Volume:" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top"/>
+        <Label Name="TtsVolumeLabel" Content="Label" HorizontalAlignment="Left" Margin="186,118,0,0" VerticalAlignment="Top"/>
+        <Slider Value="-1"  Name="TtsVolumeSlider" Margin="10,144,0,0" VerticalAlignment="Top" Maximum="100" Minimum="0" ValueChanged="slider3_ValueChanged" HorizontalAlignment="Left" Width="214" SmallChange="1"/>
+        <Label Content="TTS Speed:" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top"/>
+        <Label Name="TtsSpeedLabel" Content="Label" HorizontalAlignment="Left" Margin="186,169,0,0" VerticalAlignment="Top"/>
+        <Slider Value="-1" Name="TtsSpeedSlider" Margin="10,195,0,0" VerticalAlignment="Top" Minimum="1" ValueChanged="slider4_ValueChanged" HorizontalAlignment="Left" Width="214" SmallChange="1"/>
+        <GroupBox Header="Volume Control" HorizontalAlignment="Left" VerticalAlignment="Top" Height="300" Width="254"/>
+        <GroupBox Header="Advanced Settings" HorizontalAlignment="Left" Margin="259,0,0,0" VerticalAlignment="Top" Height="300" Width="198"/>
+        <GroupBox Header="Account Settings" HorizontalAlignment="Left" Margin="462,0,0,0" VerticalAlignment="Top" Height="300" Width="238">
+            <Grid Margin="0,0,-2,-12">
+                <Separator HorizontalAlignment="Left" Height="100" Margin="91,-2,0,0" VerticalAlignment="Top" Width="118" RenderTransformOrigin="0.5,0.5">
+                    <Separator.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-130"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Separator.RenderTransform>
+                </Separator>
+                <Separator HorizontalAlignment="Left" Height="100" Margin="13,-1,0,0" VerticalAlignment="Top" Width="122" RenderTransformOrigin="0.5,0.5">
+                    <Separator.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="130"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Separator.RenderTransform>
+                </Separator>
+                <Separator HorizontalAlignment="Left" Height="100" Margin="29,44,0,0" VerticalAlignment="Top" Width="172"/>
+                <Image Name="FacebookImage" HorizontalAlignment="Left" Height="64" Margin="0,59,0,0" VerticalAlignment="Top" Width="64" Source="/VOTC;component/Ressources/facebook.png"/>
+                <Image Name="TwitterImage" HorizontalAlignment="Left" Height="64" Margin="164,59,0,0" VerticalAlignment="Top" Width="64" Source="/VOTC;component/Ressources/twitter.png"/>
+                <Image HorizontalAlignment="Center" Height="64" VerticalAlignment="Top" Width="64" Source="/VOTC;component/Ressources/eye.png" Margin="81,27,83,0"/>
+                <Button Content="Unlink" HorizontalAlignment="Left" Margin="164,128,0,0" VerticalAlignment="Top" Width="64" Click="Button_Click"/>
+                <Button Content="Unlink" HorizontalAlignment="Left" Margin="0,128,0,0" VerticalAlignment="Top" Width="64" Click="Button_Click_1"/>
+                <Label Content="Illuminaddi c0nf1rm3d!" HorizontalAlignment="Left" Margin="49,151,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="27" Width="132">
+                    <Label.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="6.343"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Label.RenderTransform>
+                </Label>
+                <CheckBox Name="Premium" Content="VOTC Premium" HorizontalAlignment="Left" Margin="0,223,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                <CheckBox Name="Tracking" Content="Allow Tracking code (Anonymous)" HorizontalAlignment="Left" Margin="0,262,0,0" VerticalAlignment="Top" IsChecked="True" Checked="CheckBox_Checked_1" Unchecked="CheckBox_Unchecked"/>
+                <CheckBox Name="Donator" Content="VOTC Donator" HorizontalAlignment="Left" Margin="0,243,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                <CheckBox Name="Scriptssocial" Content="Scripts can use your Social Networks" HorizontalAlignment="Left" Margin="0,203,0,0" VerticalAlignment="Top"/>
+            </Grid>
+        </GroupBox>
+        <CheckBox Name="PttCheckbox" Checked="Checkedchanged" Unchecked="Checkedchanged" Content="Push to Talk" HorizontalAlignment="Left" Height="17" Margin="270,105,0,0" VerticalAlignment="Top" Width="88"/>
+        <TextBox Name="PttKey" HorizontalAlignment="Left" Height="23" Margin="363,103,0,0" TextWrapping="Wrap" Text="Press a key" VerticalAlignment="Top" Width="83" KeyDown="TextBox_KeyDown" MouseLeftButtonDown="TexboxClick" TextChanged="Bla"/>
+        <Button Content="Follow on Twitter" HorizontalAlignment="Left" Margin="270,245,0,0" VerticalAlignment="Top" Width="176" Click="Button_Click_3"/>
+        <Button Content="Like on Facebook" HorizontalAlignment="Left" Margin="270,270,0,0" VerticalAlignment="Top" Width="176" Click="Button_Click_2"/>
+        <Button Content="Train the speech recognizer" HorizontalAlignment="Left" Margin="270,220,0,0" VerticalAlignment="Top" Width="176" Click="training_click"/>
+        <Button Content="Set your default microphone" HorizontalAlignment="Left" Margin="270,195,0,0" VerticalAlignment="Top" Width="176" Click="Microphoneset"/>
+        <CheckBox Name="MuicdeleteCheckBox" Content="Enable Delete Song VC" HorizontalAlignment="Left" Height="17" Margin="270,132,0,0" VerticalAlignment="Top" Width="176" Checked="MusicdeleteCheckBox_Checked" Unchecked="MusicdeleteCheckBox_Unchecked"/>
+    </Grid>
+</Page>

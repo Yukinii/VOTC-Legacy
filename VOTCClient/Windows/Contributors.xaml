@@ -1,0 +1,30 @@
+﻿<Window x:Class="VOTCClient.Windows.Contributors"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VOTCClient.Windows"
+        mc:Ignorable="d"
+        Title="Contributors" Height="200" Width="600">
+    <Grid>
+        <ScrollViewer>
+            <StackPanel Height="377">
+                <Label HorizontalAlignment="Center" Name="Label" FontSize="20" Content="Wall of Fame"/>
+                <Label HorizontalAlignment="Center" FontStyle="Oblique" Content="VOTC's little big helpers, testers and those who helped us to get where we are today"/>
+                <Label/>
+                <TextBlock> 
+                    <Span Cursor="Hand" Foreground="DeepSkyBlue" TextDecorations="Underline" FontFamily="Verdana" FontWeight="Bold" MouseLeftButtonDown="ContentElement_OnMouseLeftButtonDown">Star Citizen Facebook: </Span> 
+                    <Span FontFamily="Verdana" FontStyle="Italic">Continuous support, advertisment and Name (VOTC)</Span> 
+                </TextBlock> 
+                <TextBlock> 
+                    <Span Cursor="Hand" Foreground="DeepSkyBlue" TextDecorations="Underline" FontFamily="Verdana" FontWeight="Bold" MouseLeftButtonDown="ContentElement_OnMouseLeftButtonDown2">MadMovey: </Span> 
+                    <Span FontFamily="Verdana" FontStyle="Italic">UI Redesign suggestions and concept art</Span> 
+                </TextBlock> 
+                <TextBlock> 
+                    <Span Cursor="Hand" Foreground="DeepSkyBlue" TextDecorations="Underline" FontFamily="Verdana" FontWeight="Bold">Kalona: </Span> 
+                    <Span FontFamily="Verdana" FontStyle="Italic">Tester of the first hour. He's reviewing every release!</Span> 
+                </TextBlock> 
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

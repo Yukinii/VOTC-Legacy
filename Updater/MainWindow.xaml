@@ -1,0 +1,14 @@
+﻿<Window x:Class="Updater.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="VOTC Updater" Height="171" Width="367" WindowStyle="ToolWindow" Loaded="Window_Loaded">
+    <Grid Margin="0,0,-8,-1">
+        <ProgressBar x:Name="Progressbar" HorizontalAlignment="Left" Height="20" Margin="6,114,0,0" VerticalAlignment="Top" Width="339"/>
+        <Label x:Name="Label" Content="" HorizontalAlignment="Left" Margin="6,0,0,0" VerticalAlignment="Top" Height="21" Width="339" FontFamily="Lucida Console"/>
+        <Label x:Name="Label2" Content="Checking Remote file..." HorizontalAlignment="Left" Margin="6,92,0,0" VerticalAlignment="Top" Height="21" Width="339" FontFamily="Lucida Console"/>
+        <TextBox x:Name="TextBox" HorizontalAlignment="Left" Height="66" Margin="6,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="339" IsReadOnly="True"/>
+    </Grid>
+</Window>

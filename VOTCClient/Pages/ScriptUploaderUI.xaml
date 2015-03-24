@@ -1,0 +1,41 @@
+﻿<Page x:Class="VOTCClient.Pages.ScriptUploaderUi"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      mc:Ignorable="d"
+      Height="480" Width="854" Loaded="Page_Loaded">
+    <xctk:BusyIndicator Name="BusyIndicator" IsBusy="True">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Configure your script" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,35,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,56,0,0" TextWrapping="Wrap" Text="Author:" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,77,0,0" TextWrapping="Wrap" Text="For Application:" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,100,0,0" TextWrapping="Wrap" Text="Require Foreground:" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,260,0,0" TextWrapping="Wrap" Text="Describe the Plugin" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="442,227,0,0" TextWrapping="Wrap" Text="Available commands (one per line)" VerticalAlignment="Top"/>
+
+        <TextBox Name="Nametxtbx" HorizontalAlignment="Left" Height="17" Margin="123,34,0,0" TextWrapping="Wrap" Text="Sample Script" VerticalAlignment="Top" Width="289"/>
+        <TextBox Name="Authortxtbx" HorizontalAlignment="Left" Height="17" Margin="123,56,0,0" TextWrapping="Wrap" Text="BitFlash, LLC." VerticalAlignment="Top" Width="289"/>
+        <TextBox Name="Forapptxtbx" HorizontalAlignment="Left" Height="17" Margin="123,77,0,0" TextWrapping="Wrap" Text="StarCitizen" VerticalAlignment="Top" Width="289"/>
+        <TextBox Name="Reqforetxtbx" HorizontalAlignment="Left" Height="17" Margin="123,99,0,0" TextWrapping="Wrap" Text="Yes" VerticalAlignment="Top" Width="289"/>
+        <TextBox Name="Descriptiontxtbx" Text="Description hereDescription hereDescription hereDescription hereDescription hereDescription hereDescription hereDescription hereDescription hereDescription hereDescription hereDescription hereDescription hereDescription hereDescription hereDescription hereDescription hereDescription hereDescription hereDescription here" AcceptsReturn="True" HorizontalAlignment="Left" Height="164" Margin="9,281,0,0" VerticalAlignment="Top" Width="419" TextWrapping="Wrap"/>
+        <TextBox TextWrapping="WrapWithOverflow" Name="Commandstxtbx" Text="One command per line" AcceptsReturn="True" HorizontalAlignment="Left" Height="197" Margin="442,248,0,0" VerticalAlignment="Top" Width="402"/>
+
+        <Button Name="Submitbtn" Content="Submit" Margin="769,450,10,10" Click="submitbtn_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,122,0,0" TextWrapping="Wrap" Text="Header Image URL:" VerticalAlignment="Top"/>
+        <TextBox Name="Headerimagebox" HorizontalAlignment="Left" Height="41" Margin="123,121,0,0" TextWrapping="Wrap" Text="http://i.epvpimg.com/TBMKe.png" VerticalAlignment="Top" Width="240" TextChanged="Headerimagebox_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,168,0,0" TextWrapping="Wrap" Text="Store Badge URL:" VerticalAlignment="Top"/>
+        <TextBox Name="Storebadgebox" HorizontalAlignment="Left" Height="44" Margin="123,167,0,0" TextWrapping="Wrap" Text="http://i.epvpimg.com/pKUtg.png" VerticalAlignment="Top" Width="240" TextChanged="Storebadgebox_TextChanged"/>
+        <Image RenderOptions.BitmapScalingMode="Fant" Name="Headerimage" HorizontalAlignment="Left" Height="168" Margin="417,43,0,0" VerticalAlignment="Top" Width="300" Source="http://i.epvpimg.com/TBMKe.png" Stretch="Fill"/>
+        <TextBlock HorizontalAlignment="Left" Margin="417,25,0,0" TextWrapping="Wrap" Text="Header Preview" VerticalAlignment="Top"/>
+        <Ellipse RenderOptions.BitmapScalingMode="Fant" Name="BadgeimagImage" HorizontalAlignment="Left" Height="121" Margin="723,46,0,0" VerticalAlignment="Top" Width="121" Stretch="UniformToFill"/>
+        <TextBlock HorizontalAlignment="Left" Margin="723,25,0,0" TextWrapping="Wrap" Text="Badge Preview" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,217,0,0" TextWrapping="Wrap" Text="(Set) Your Password for Script Updates:" VerticalAlignment="Top"/>
+        <TextBox Name="Passwordbox" HorizontalAlignment="Left" Height="17" Margin="10,238,0,0" TextWrapping="Wrap" Text="v3rrys3cr3tp455w0rd" VerticalAlignment="Top" Width="402"/>
+        <Button Name="Button" Content="Browse" HorizontalAlignment="Left" Margin="370,122,0,0" VerticalAlignment="Top" Width="42" Height="40" Click="button_Click"/>
+        <Button Name="ButtonCopy" Content="Browse" HorizontalAlignment="Left" Margin="370,168,0,0" VerticalAlignment="Top" Width="42" Height="43" Click="button_Copy_Click"/>
+    </Grid>
+        </xctk:BusyIndicator>
+</Page>
