@@ -1,6 +1,0 @@
-﻿- Version 0.1.0.0 -
-Store Upgrade with Azure CDN for loading images.
-Script uploader allows you to upload images to Azure.
-Loads of bug fixes
-Store loading indicator
-Scripting system revisited (Please delete your old scripts or update them from the store)
