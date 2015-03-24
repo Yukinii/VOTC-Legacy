@@ -6,7 +6,7 @@ Those may or may not be released under GPLv3
 Please keep this in mind if you fork/redistribute it.*
 
 
-## H2 I'm using the following 3rd party libraries:
+## I'm using the following 3rd party libraries:
 
 * InputManager.dll by Shynet, released under the CPOL 1.02 (Basic Mouse/Keyboard hook, being replaced as its buggy)
 * Facebook SDK by https://github.com/facebook-csharp-sdk/facebook-csharp-sdk (-..-)
