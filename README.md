@@ -7,10 +7,10 @@ Please keep this in mind if you fork/redistribute it.
 
 I'm using the following 3rd party libraries:
 
-InputManager.dll by Shynet, released under the CPOL 1.02 (Basic Mouse/Keyboard hook, being replaced as its buggy)
-Facebook SDK by https://github.com/facebook-csharp-sdk/facebook-csharp-sdk (-..-)
-Twitter SDK by https://github.com/danielcrenna/tweetsharp (-..-)
-BusyIndicator by http://wpftoolkit.codeplex.com/ (for the store loading)
-SlimDX by https://github.com/SlimDX/SlimDX (for the overlay test)
-OpenHardwareMonitor by https://github.com/spl0k/open-hardware-monitor (for displaying temps and other stats)
-Newtonsoft JSON by https://github.com/JamesNK/Newtonsoft.Json (for serializing objects client<->server)
+*InputManager.dll by Shynet, released under the CPOL 1.02 (Basic Mouse/Keyboard hook, being replaced as its buggy)
+*Facebook SDK by https://github.com/facebook-csharp-sdk/facebook-csharp-sdk (-..-)
+*Twitter SDK by https://github.com/danielcrenna/tweetsharp (-..-)
+*BusyIndicator by http://wpftoolkit.codeplex.com/ (for the store loading)
+*SlimDX by https://github.com/SlimDX/SlimDX (for the overlay test)
+*OpenHardwareMonitor by https://github.com/spl0k/open-hardware-monitor (for displaying temps and other stats)
+*Newtonsoft JSON by https://github.com/JamesNK/Newtonsoft.Json (for serializing objects client<->server)
