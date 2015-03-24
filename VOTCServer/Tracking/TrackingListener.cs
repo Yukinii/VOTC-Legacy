@@ -11,6 +11,7 @@ namespace VOTCServer.Tracking
     public static class TrackingListener
     {
         private static readonly Thread T = new Thread(Start);
+
         public static void Init()
         {
             T.Start();
@@ -26,10 +27,10 @@ namespace VOTCServer.Tracking
             {
                 try
                 {
-                    var client = listener.AcceptTcpClient();
+                    var client = await listener.AcceptTcpClientAsync();
                     var stream = client.GetStream();
                     int I;
-                    while ((I = stream.Read(bytes, 0, bytes.Length)) != 0)
+                    while ((I = await stream.ReadAsync(bytes, 0, bytes.Length)) != 0)
                     {
                         using (var writer = new StreamWriter("Tracking.txt", true))
                         {
@@ -41,7 +42,7 @@ namespace VOTCServer.Tracking
                             if(Kernel.CommandsReceived.Count > 50)
                                 Kernel.CommandsReceived.Clear();
 
-                            Kernel.CommandsReceived.Add(DateTime.Now.ToShortTimeString() + " | " + data.Split('|')[0]);
+                            Kernel.CommandsReceived.Insert(0,data.Split('|')[0]);
                         }
                     }
                     client.Close();

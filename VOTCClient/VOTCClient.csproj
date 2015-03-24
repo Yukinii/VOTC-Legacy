@@ -127,6 +127,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Speech" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows" />
@@ -155,6 +156,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\Cache\ChatCache.cs" />
     <Compile Include="Core\Extensions\ConcurrentList.cs" />
     <Compile Include="Core\Extensions\KonamiCode.cs" />
     <Compile Include="Core\External\Azure\ImageUpload.cs" />
@@ -173,10 +175,14 @@
     <Compile Include="Core\Hardware\HardwareInterface.cs" />
     <Compile Include="Core\Helpers\VoiceCommand.cs" />
     <Compile Include="Core\Hook\KeyboardHook.cs" />
+    <Compile Include="Core\Network\Client.cs" />
+    <Compile Include="Core\Network\WCF\ILogic.cs" />
+    <Compile Include="Core\Network\WCF\ILogicChannel.cs" />
     <Compile Include="Core\Network\Tracking.cs" />
     <Compile Include="Core\Speech\TextToSpeech.cs" />
     <Compile Include="Core\External\Facebook\Facebook.cs" />
     <Compile Include="Core\External\Twitter\Twitter.cs" />
+    <Compile Include="Core\Cache\StoreCache.cs" />
     <Compile Include="Pages\ProfileDetailView.xaml.cs">
       <DependentUpon>ProfileDetailView.xaml</DependentUpon>
     </Compile>

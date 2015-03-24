@@ -21,6 +21,7 @@
                 <MenuItem Header="Chat Test" Click="ChatTest_Click"/>
                 <MenuItem Header="Overlay Test" Click="OverlayTest_Click"/>
                 <MenuItem Header="ThermalInterface" Click="ThermalInterfaceTest_Click"/>
+                <MenuItem Header="DB 2.0" Click="DB2_Click"/>
             </MenuItem>
             <MenuItem Header="Social..">
                 <MenuItem Header="Facebook" Click="Facebook_Click"/>
@@ -34,8 +35,8 @@
             </MenuItem>
             <Separator Width="10"/>
             <MenuItem Header="Script Store" Click="Store_Click"/>
-            <Separator Background="White" Width="265"/>
-            <Ellipse HorizontalAlignment="Center" VerticalAlignment="Center" Fill="Chartreuse" Name="Ellipse" Width="10" Height="10"/>
+            <TextBlock Name="Temps" Text="CPU: 50 °C - GPU: 50 °C - Used RAM: 46%"/>
+            <Ellipse HorizontalAlignment="Right" VerticalAlignment="Center" Fill="Chartreuse" Name="Ellipse" Width="10" Height="10"/>
         </Menu>
         <ProgressBar Background="White" Name="ProgressBar1" Margin="0,18,0,126" BorderThickness="0" Maximum="100"/>
         <ListBox Name="ListBox" MouseDoubleClick="listBox_MouseDoubleClick" Margin="0,25,121,0" BorderThickness="0"/>

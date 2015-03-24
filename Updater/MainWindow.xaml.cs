@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Reflection;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -25,16 +26,16 @@ using System.Windows;
 */
 namespace Updater
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow
     {
         public int LocalVersion;
         public int RemoteVersion;
+        public static bool IsAdministrator() => (new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator);
 
         public MainWindow()
         {
+            if (!IsAdministrator())
+                MessageBox.Show("Please run this application as administrator. It might not work without, but you're free to test :P\n\nClick 'OK' to launch anyway");
             InitializeComponent();
             Height = 70;
             Label.Content = "Checking for new update...";

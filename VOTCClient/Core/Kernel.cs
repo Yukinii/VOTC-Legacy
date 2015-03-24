@@ -12,6 +12,7 @@ using TweetSharp;
 using VOTCClient.Core.Extensions;
 using VOTCClient.Core.Hook;
 using VOTCClient.Core.IO;
+using VOTCClient.Core.Network;
 using VOTCClient.Core.Scripts;
 using VOTCClient.Core.Sounds;
 using VOTCClient.Core.Speech;
@@ -151,6 +152,8 @@ namespace VOTCClient.Core
             }
         }
 
+        public static LogicClient Channel { get; set; }
+
         public static bool IsInGame(string gameName)
         {
             var processes = Process.GetProcessesByName(gameName);
@@ -190,6 +193,7 @@ namespace VOTCClient.Core
             try
             {
                 e.Handled = true;
+                e.SuppressKeyPress = true;
                 Keyboard.KeyUp(e.KeyCode);
                 if (!Recognize || !PttKeyDown)
                     return;

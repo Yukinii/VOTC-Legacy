@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using Newtonsoft.Json;
 using VOTCClient.Core;
+using VOTCClient.Core.Cache;
 using VOTCClient.Core.IO;
 using Path = System.IO.Path;
 
@@ -47,9 +48,9 @@ namespace VOTCClient.Windows
         public ChatWindow(Window mainWindow)
         {
             InitializeComponent();
-            Width = mainWindow.Width-4;
+            Width = mainWindow.Width-12;
             Top = mainWindow.Top + mainWindow.Height;
-            Left = mainWindow.Left;
+            Left = mainWindow.Left+4;
 
             SoundThingy.LoadedBehavior = MediaState.Manual;
             SoundThingy.UnloadedBehavior = MediaState.Manual;
@@ -69,7 +70,7 @@ namespace VOTCClient.Windows
             }
         }
 
-        private async void SendMessage(string text)
+        private async void SendMessage(string text,bool closing = false)
         {
             try
             {
@@ -100,12 +101,20 @@ namespace VOTCClient.Windows
             }
             catch
             {
+                if (closing)
+                    return;
                 MessageBox.Show("Failed to send the message. Server did not respond", "Fail");
             }
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(Kernel.FacebookName) && string.IsNullOrEmpty(Kernel.TwitterUsername))
+            {
+                MessageBox.Show("You have to login to facebook or twitter first so we can identify you.");
+                Close();
+                return;
+            }
             try
             {
                 await Client.ConnectAsync("79.133.51.71", 700);
@@ -158,11 +167,6 @@ namespace VOTCClient.Windows
                 IoQueue.Add(ex);
             }
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Kernel.ChatWindow = null;
-            Close();
-        }
 
         private void InputboBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -171,7 +175,7 @@ namespace VOTCClient.Windows
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            SendMessage("Disconnected!");
+            SendMessage("Disconnected!",true);
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -182,6 +186,12 @@ namespace VOTCClient.Windows
         private void Mutebox_OnUnchecked(object sender, RoutedEventArgs e)
         {
             SoundThingy.Volume = 0.3;
+        }
+
+        private void UIElement_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Kernel.ChatWindow = null;
+            Close();
         }
     }
 
@@ -208,7 +218,7 @@ namespace VOTCClient.Windows
         {
             Text.Text = text;
             UserName.Text = username;
-            var cachedImage = CacheLookup(imageUrl);
+            var cachedImage = ChatCache.CacheLookup(imageUrl);
 
             var myImageSource = new ImageBrush {ImageSource = new BitmapImage(new Uri(cachedImage == "" ? imageUrl : cachedImage))};
             Img.Fill = myImageSource;
@@ -223,35 +233,7 @@ namespace VOTCClient.Windows
             UserName.FontSize = 13.0;
             Text.FontSize = 13.0;
             if (!send)
-                CacheImage(imageUrl, username);
-        }
-
-        private static void CacheImage(string imageUrl,string username)
-        {
-            Task.Run(() =>
-            {
-                try
-                {
-                    using (var client = new WebClient())
-                    {
-                        if (!File.Exists(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Cache\ChatCache\" + username + ".png"))
-                            client.DownloadFile(imageUrl, Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Cache\ChatCache\" + username + ".png");
-                        else
-                            client.DownloadFile(imageUrl, Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Cache\ChatCache\" + username + ".png" + Kernel.Random.Next(1, 200000000));
-                    }
-                    Kernel.ChatCache.TryAdd(imageUrl,Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location )+ @"\Cache\ChatCache\" + username + ".png");
-                }
-                catch (Exception ex)
-                {
-                    IoQueue.Add(ex);
-                }
-            });
-        }
-
-        public string CacheLookup(string url)
-        {
-            string value;
-            return Kernel.ChatCache.TryGetValue(url, out value) ? value : "";
+                ChatCache.CacheImage(imageUrl, username);
         }
     }
 }

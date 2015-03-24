@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,7 +40,6 @@ namespace VOTCClient.Pages
     public partial class Ui
     {
         internal KonamiSequence Sequence = new KonamiSequence();
-        //internal readonly Timer TitleUpdater = new Timer();
 
         public Ui()
         {
@@ -126,6 +126,9 @@ namespace VOTCClient.Pages
             DisplayCmd("If you're new, go to the store and download one!");
             try
             {
+                if (Kernel.Channel == null)
+                    Kernel.Channel = new LogicClient("MetadataExchangeHttpBinding_ILogic", "http://localhost/RemoteExecute/mex");
+
                 if (sender != null && e != null)
                 {
                     await Task.Run(async () =>
@@ -254,6 +257,11 @@ namespace VOTCClient.Pages
         private async void ThermalInterfaceTest_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(await CPU.GetTempAsync() + "°C");
+        }
+
+        private async void DB2_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show((await Kernel.Channel.GetNewestScriptsAsync("-")).FirstOrDefault());
         }
     }
 }

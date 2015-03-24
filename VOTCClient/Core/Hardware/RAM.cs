@@ -29,7 +29,7 @@ namespace VOTCClient.Core.Hardware
 
         public static async Task<int> GetFreeMemoryAsync()
         {
-            return await Task.Run(() => (from value in GetValues(SensorType.Level) where value != null select (int)value.Value).FirstOrDefault());
+            return await Task.Run(() => (from value in GetValues(SensorType.Load) where value != null select (int)value.Value).FirstOrDefault());
         }
         public static async Task<int> GetUsedMemoryAsync()
         {

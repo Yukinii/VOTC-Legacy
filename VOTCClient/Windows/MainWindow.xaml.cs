@@ -108,7 +108,6 @@ namespace VOTCClient.Windows
             }
             else
             {
-               //Kernel.UI.TitleUpdater.Stop();
                 Kernel.KeyboardHook.Unhook();
                 MouseHook.UninstallHook();
                 Kernel.KeepThreadsRunning = false;
@@ -119,7 +118,10 @@ namespace VOTCClient.Windows
                 await Task.Delay(10000);
                 Environment.Exit(0);
             }
-            GC.Collect(10, GCCollectionMode.Forced);
+            GC.Collect(0, GCCollectionMode.Forced);
+            GC.Collect(1, GCCollectionMode.Forced);
+            GC.Collect(2, GCCollectionMode.Forced);
+            GC.Collect(3, GCCollectionMode.Forced);
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -140,7 +142,7 @@ namespace VOTCClient.Windows
         {
             if (Kernel.ChatWindow == null) return;
             Kernel.ChatWindow.Top = Top + Height;
-            Kernel.ChatWindow.Left = Left;
+            Kernel.ChatWindow.Left = Left+4;
         }
     }
 }
