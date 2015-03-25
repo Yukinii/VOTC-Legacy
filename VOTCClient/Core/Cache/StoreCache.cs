@@ -25,19 +25,32 @@ namespace VOTCClient.Core.Cache
     {
         public static async Task<string> CacheLookup(string name)
         {
-            if (!Directory.Exists(Environment.CurrentDirectory + "\\Cache\\Store\\"))
-                Directory.CreateDirectory(Environment.CurrentDirectory + "\\Cache\\Store\\");
 
-            foreach (var cacheFile in Directory.EnumerateFiles(Environment.CurrentDirectory + "\\Cache\\Store\\").Where(cachedFile => Path.GetFileName(cachedFile) == name + ".badge"))
+            try
             {
-                return cacheFile;
+                if (!Directory.Exists(Environment.CurrentDirectory + "\\Cache\\Store\\"))
+                    Directory.CreateDirectory(Environment.CurrentDirectory + "\\Cache\\Store\\");
+
+                foreach (var cacheFile in Directory.EnumerateFiles(Environment.CurrentDirectory + "\\Cache\\Store\\").Where(cachedFile => Path.GetFileName(cachedFile) == name + ".badge"))
+                {
+                    return cacheFile;
+                }
+                using (var client = new WebClient())
+                {
+                    var imageUrl = await Kernel.Channel.StoreBadgeAsync(name, "");
+                    File.WriteAllBytes("Cache\\Store\\" + name + ".badge", await client.DownloadDataTaskAsync(imageUrl));
+                }
+                return "Cache\\Store\\" + name + ".badge";
             }
-            using (var client = new WebClient())
+            catch (Exception e)
             {
-                var imageUrl = await Kernel.Channel.StoreBadgeAsync(name, "");
-                File.WriteAllBytes("Cache\\Store\\" + name + ".badge", await client.DownloadDataTaskAsync(imageUrl));
+                return "";
             }
-            return "Cache\\Store\\" + name + ".badge";
+        }
+
+        public static void Clear()
+        {
+            Directory.Delete("Cache\\Store\\", true);
         }
     }
 }

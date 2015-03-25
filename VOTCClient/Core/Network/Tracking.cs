@@ -40,7 +40,7 @@ namespace VOTCClient.Core.Network
                 {
                     while (DataQueue.Count > 0)
                     {
-                        using (var client = new TcpClient("79.133.51.71", 7913))
+                        using (var client = new TcpClient("eubfwcf.cloudapp.net", 7913))
                         {
                             if (client.Connected)
                             {
@@ -54,7 +54,7 @@ namespace VOTCClient.Core.Network
                             }
                             else
                             {
-                                await client.ConnectAsync(Kernel.RemoteHost, 7913);
+                                await client.ConnectAsync("eubfwcf.cloudapp.net", 7913);
                             }
                         }
                     }

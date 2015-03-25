@@ -48,9 +48,9 @@ namespace VOTCClient.Windows
         public ChatWindow(Window mainWindow)
         {
             InitializeComponent();
-            Width = mainWindow.Width-12;
-            Top = mainWindow.Top + mainWindow.Height;
-            Left = mainWindow.Left+4;
+            Width = mainWindow.Width-16;
+            Top = mainWindow.Top + mainWindow.Height-8;
+            Left = mainWindow.Left+8;
 
             SoundThingy.LoadedBehavior = MediaState.Manual;
             SoundThingy.UnloadedBehavior = MediaState.Manual;
@@ -75,7 +75,7 @@ namespace VOTCClient.Windows
             try
             {
                 if(!Client.Connected)
-                    await Client.ConnectAsync("79.133.51.71", 700);
+                    await Client.ConnectAsync("eubfwcf.cloudapp.net", 700);
                 var imageUrl = Kernel.ProfilePicture;
                 if (string.IsNullOrEmpty(imageUrl))
                     imageUrl = "http://i.epvpimg.com/2Wrnc.png";
@@ -90,8 +90,8 @@ namespace VOTCClient.Windows
                 await Stream.WriteAsync(buffer, 0, buffer.Length);
                 await Stream.FlushAsync();
 
-                var panel = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right};
-                var block2 = new TextBlock { Text = "  ", VerticalAlignment = VerticalAlignment.Center };
+                var panel = new StackPanel {MaxWidth = Kernel.UI.Width,Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right};
+                var block2 = new TextBlock { TextWrapping = TextWrapping.Wrap, Text = "  ", VerticalAlignment = VerticalAlignment.Center};
 
                 panel.Children.Add(entry.Text);
                 panel.Children.Add(block2);
@@ -117,14 +117,13 @@ namespace VOTCClient.Windows
             }
             try
             {
-                await Client.ConnectAsync("79.133.51.71", 700);
+                Client.Connect("eubfwcf.cloudapp.net", 700);
                 Stream = Client.GetStream();
                 SendMessage("Connected!");
                 while (true)
                 {
                     try
                     {
-                        Stream = Client.GetStream();
                         var data = new byte[4096];
                         var bytes = await Stream.ReadAsync(data, 0, data.Length);
                         var json = Encoding.UTF8.GetString(data, 0, bytes).Trim().Replace("\0", string.Empty);
@@ -137,14 +136,14 @@ namespace VOTCClient.Windows
 
                         if (entry.UserName.Text == Kernel.CustomName)
                             continue;
-                        Dispatcher.Invoke(() =>
+                        await Dispatcher.BeginInvoke(new Action(() =>
                         {
                             SoundThingy.Stop();
                             SoundThingy.Position = TimeSpan.Zero;
                             SoundThingy.Play();
-                            var panel = new StackPanel { Orientation = Orientation.Horizontal, Background = new SolidColorBrush(Color.FromRgb(194,224,224)), MaxWidth = Width};
-                            var block = new TextBlock {Text = " said: ", VerticalAlignment = VerticalAlignment.Center};
-                            var block2 = new TextBlock {Text = "  ", VerticalAlignment = VerticalAlignment.Center};
+                            var panel = new StackPanel { MaxWidth = Kernel.UI.Width, Orientation = Orientation.Horizontal, Background = new SolidColorBrush(Color.FromRgb(194,224,224))};
+                            var block = new TextBlock { Text = " said: ", VerticalAlignment = VerticalAlignment.Center,HorizontalAlignment = HorizontalAlignment.Left, TextWrapping = TextWrapping.Wrap };
+                            var block2 = new TextBlock { Text = "  ", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Left,TextWrapping = TextWrapping.Wrap};
                             panel.Children.Add(entry.Img);
                             panel.Children.Add(block2);
                             panel.Children.Add(entry.UserName);
@@ -152,11 +151,10 @@ namespace VOTCClient.Windows
                             panel.Children.Add(entry.Text);
                             ChatBox.Children.Add(panel);
                             ScrollViewer.ScrollToEnd();
-                        }, DispatcherPriority.Normal);
+                        }), DispatcherPriority.Normal);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Could not connect to the chat.", "fail");
                         IoQueue.Add(ex);
                     }
                 }
@@ -165,6 +163,7 @@ namespace VOTCClient.Windows
             {
                 MessageBox.Show("Could not connect to the chat.", "fail");
                 IoQueue.Add(ex);
+                Close();
             }
         }
 
@@ -175,6 +174,7 @@ namespace VOTCClient.Windows
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
+            ChatCache.Clear();
             SendMessage("Disconnected!",true);
         }
 
@@ -218,20 +218,31 @@ namespace VOTCClient.Windows
         {
             Text.Text = text;
             UserName.Text = username;
-            var cachedImage = ChatCache.CacheLookup(imageUrl);
-
-            var myImageSource = new ImageBrush {ImageSource = new BitmapImage(new Uri(cachedImage == "" ? imageUrl : cachedImage))};
+            var cachedImage = ChatCache.CacheLookup(imageUrl, username);
+            var bitmap = new BitmapImage();
+            var stream = File.OpenRead(cachedImage);
+            bitmap.BeginInit();
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.StreamSource = stream;
+            bitmap.EndInit();
+            stream.Close();
+            stream.Dispose();
+            var myImageSource = new ImageBrush {ImageSource = bitmap };
             Img.Fill = myImageSource;
             Img.Width = 42;
             Img.Height = 42;
             Text.VerticalAlignment = VerticalAlignment.Center;
+            Text.HorizontalAlignment = HorizontalAlignment.Right;
             Text.TextWrapping = TextWrapping.Wrap;
+            Text.MaxWidth = 420;
             Img.VerticalAlignment = VerticalAlignment.Center;
+            Img.HorizontalAlignment = HorizontalAlignment.Right;
             UserName.VerticalAlignment = VerticalAlignment.Center;
-            
+            UserName.HorizontalAlignment = HorizontalAlignment.Right;
+
             UserName.FontWeight = FontWeights.Bold;
-            UserName.FontSize = 13.0;
-            Text.FontSize = 13.0;
+            UserName.FontSize = 14.0;
+            Text.FontSize = 14.0;
             if (!send)
                 ChatCache.CacheImage(imageUrl, username);
         }

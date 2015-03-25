@@ -73,5 +73,13 @@ namespace BitFlashGenericWCF
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         List<string> GetUpdatedScripts(string apiKey);
+
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        void PostChatMessage(string json);
+
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        List<string> GetChatMessages();
     }
 }

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using BitFlashGenericWCF.Scripts;
+using VOTCServer.Socket;
+
 /*
     This file is part of VOTC.
 
@@ -30,6 +33,9 @@ namespace BitFlashGenericWCF.Core
         public static readonly ConcurrentDictionary<string, Script> PopularScripts = new ConcurrentDictionary<string, Script>();
         public static List<string> CommandsReceived = new List<string>();
         public static int DownloadCount = 0;
+        public static ConcurrentDictionary<string,NetworkClient> ConnectedClients = new ConcurrentDictionary<string, NetworkClient>();
+        public static List<string> ChatMessages = new List<string>();
+
         public static void WriteLine(object text, ConsoleColor color)
         {
             Console.ForegroundColor = color;

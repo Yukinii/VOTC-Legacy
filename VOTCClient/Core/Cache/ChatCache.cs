@@ -40,10 +40,17 @@ namespace VOTCClient.Core.Cache
             }
         }
 
-        public static string CacheLookup(string url)
+        public static string CacheLookup(string url,string name)
         {
+            CacheImage(url, name);
             string value;
             return Kernel.ChatCache.TryGetValue(url, out value) ? value : "";
+        }
+
+        public static void Clear()
+        {
+            Kernel.ChatCache.Clear();
+            Directory.Delete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Cache\ChatCache\", true);
         }
     }
 }

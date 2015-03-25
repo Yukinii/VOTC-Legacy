@@ -141,8 +141,8 @@ namespace VOTCClient.Windows
         private void Window_LocationChanged(object sender, EventArgs e)
         {
             if (Kernel.ChatWindow == null) return;
-            Kernel.ChatWindow.Top = Top + Height;
-            Kernel.ChatWindow.Left = Left+4;
+            Kernel.ChatWindow.Top = Top + Height-8;
+            Kernel.ChatWindow.Left = Left+8;
         }
     }
 }

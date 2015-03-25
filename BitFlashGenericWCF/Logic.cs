@@ -99,5 +99,17 @@ namespace BitFlashGenericWCF
             Console.WriteLine("GetUpdatedScripts");
             return Kernel.AllScripts.Where(o => o.Value.Category == Category.Updated).Select(script => script.Key).ToList();
         }
+
+        public void PostChatMessage(string json)
+        {
+            Kernel.ChatMessages.Insert(0,json);
+            if (Kernel.ChatMessages.Count > 20)
+                Kernel.ChatMessages.RemoveAt(20);
+        }
+        
+        public List<string> GetChatMessages()
+        {
+            return Kernel.ChatMessages;
+        }
     }
 }

@@ -87,5 +87,17 @@ namespace VOTCClient.Core.Network.WCF
     
         [OperationContract(Action="http://tempuri.org/ILogic/GetUpdatedScripts", ReplyAction="http://tempuri.org/ILogic/GetUpdatedScriptsResponse")]
         Task<List<string>> GetUpdatedScriptsAsync(string apiKey);
+
+        [OperationContractAttribute(Action = "http://tempuri.org/ILogic/PostChatMessage", ReplyAction = "http://tempuri.org/ILogic/PostChatMessageResponse")]
+        void PostChatMessage(string json);
+
+        [OperationContractAttribute(Action = "http://tempuri.org/ILogic/PostChatMessage", ReplyAction = "http://tempuri.org/ILogic/PostChatMessageResponse")]
+        Task PostChatMessageAsync(string json);
+
+        [OperationContractAttribute(Action = "http://tempuri.org/ILogic/GetChatMessages", ReplyAction = "http://tempuri.org/ILogic/GetChatMessagesResponse")]
+        string[] GetChatMessages();
+
+        [OperationContractAttribute(Action = "http://tempuri.org/ILogic/GetChatMessages", ReplyAction = "http://tempuri.org/ILogic/GetChatMessagesResponse")]
+        Task<string[]> GetChatMessagesAsync();
     }
 }

@@ -85,9 +85,6 @@ namespace VOTCClient.Core
         internal static bool EnableDeleteMusicVoiceCommand;
 
         public static string CustomName;
-
-        //internal static string RemoteHost = "http://192.168.0.2:141/";
-        internal const string RemoteHost = "http://79.133.51.71:141/";
         internal static string FacebookAccessToken;
         internal static string ProfilePicture;
         internal static string FacebookName;

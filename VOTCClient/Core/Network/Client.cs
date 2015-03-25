@@ -144,5 +144,24 @@ namespace VOTCClient.Core.Network
         {
             return Channel.GetUpdatedScriptsAsync(apiKey);
         }
+        public void PostChatMessage(string json)
+        {
+            Channel.PostChatMessage(json);
+        }
+
+        public Task PostChatMessageAsync(string json)
+        {
+            return Channel.PostChatMessageAsync(json);
+        }
+
+        public string[] GetChatMessages()
+        {
+            return Channel.GetChatMessages();
+        }
+
+        public Task<string[]> GetChatMessagesAsync()
+        {
+            return Channel.GetChatMessagesAsync();
+        }
     }
 }

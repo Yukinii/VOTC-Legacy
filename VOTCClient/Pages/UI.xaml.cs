@@ -15,6 +15,7 @@ using VOTCClient.Core;
 using VOTCClient.Core.Extensions;
 using VOTCClient.Core.External.Faroo;
 using VOTCClient.Core.Hardware;
+using VOTCClient.Core.IO;
 using VOTCClient.Core.Network;
 using VOTCClient.Core.Speech;
 using VOTCClient.Windows;
@@ -142,10 +143,7 @@ namespace VOTCClient.Pages
                             string remoteHash;
                             try
                             {
-                                using (var client = new WebClient())
-                                {
-                                    remoteHash = await client.DownloadStringTaskAsync(Kernel.RemoteHost + scriptName + ".gethash");
-                                }
+                                remoteHash = await Kernel.Channel.GetScriptHashAsync(scriptName, "");
                             }
                             catch
                             {
@@ -170,9 +168,10 @@ namespace VOTCClient.Pages
                     });
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 MessageBox.Show("VOTC Master Server offline. No updates could be fetched :(");
+                IoQueue.Add(ex);
             }
             InternalSpeechRecognizer.PrepareSpeech();
             if (string.IsNullOrEmpty(Kernel.FacebookAccessToken))
@@ -236,9 +235,17 @@ namespace VOTCClient.Pages
 
         private void ChatTest_Click(object sender, RoutedEventArgs e)
         {
-            var box = new ChatWindow(Kernel.Window);
-            Kernel.ChatWindow = box;
-            box.Show();
+            if (Kernel.ChatWindow != null)
+            {
+                Kernel.ChatWindow.Close();
+                Kernel.ChatWindow = null;
+            }
+            else
+            {
+                var box = new ChatWindow(Kernel.Window);
+                Kernel.ChatWindow = box;
+                box.Show();
+            }
         }
 
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)

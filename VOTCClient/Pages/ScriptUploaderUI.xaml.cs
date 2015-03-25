@@ -57,12 +57,6 @@ namespace VOTCClient.Pages
                 {
                     try
                     {
-                        var request = (HttpWebRequest)WebRequest.Create(Kernel.RemoteHost);
-                        request.KeepAlive = false;
-                        request.Method = "Post";
-                        request.ContentType = "text/xml";
-                        request.Proxy = null;
-
                         var builder = new StringBuilder();
                         builder.AppendLine(Nametxtbx.Text);
                         builder.AppendLine(Authortxtbx.Text);
@@ -78,15 +72,7 @@ namespace VOTCClient.Pages
                         {
                             var data = Bit.CompressString(builder.ToString());
                             Kernel.ScriptUploaderWindow.Content = new UploadScriptProgress("Compressed " + builder.Length / 1024 + "kb into " + data.Length / 1024 + "kb using BitCompress!");
-                            request.ContentLength = data.Length;
-                            using (var reqStream = await request.GetRequestStreamAsync())
-                            {
-                                await reqStream.WriteAsync(data, 0, data.Length);
-                                await reqStream.FlushAsync();
-
-                                while (!Kernel.Ready)
-                                    await Task.Delay(100);
-                            }
+                            await Kernel.Channel.UploadScriptAsync(builder.ToString(), "");
                             if (fileContent.Contains("Socket") || fileContent.Contains("Listen"))
                             {
                                 MessageBox.Show("Your script is potentially harmful so it will be manually reviewed and will only show up as Potentially Harmful Script in the meantime.", "Success!");

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.ServiceModel;
+using System.Text;
 using BitFlashGenericWCF;
+using BitFlashGenericWCF.Core;
 using BitFlashGenericWCF.Database;
 using BitFlashGenericWCF.Tracking;
+using VOTCServer.Socket;
 
 /*
     This file is part of VOTC.
@@ -37,6 +40,9 @@ namespace GenericServiceHost
                 API.Initialize(); //Basic security layer, each request has to contain a valid API Key
                 ScriptDb.LoadScripts();
                 TrackingListener.Init();
+                var serverSock = new NetworkServerSocket { ClientBufferSize = 4096, OnConnect = Connecting, OnReceive = Receiving, OnDisconnect = Disconnecting };
+                serverSock.Prepare(700, 100);
+                serverSock.BeginAccept();
                 Console.Title ="BitFlash VOTC Service Host";
                 Service = new ServiceHost(typeof (Logic));//Everything thats used to configure the Server is found in the App.Config
                 Service.Faulted += Service_Faulted;
@@ -57,7 +63,7 @@ namespace GenericServiceHost
                 Console.Write(exception);
                 Console.ReadLine();
             }
-            Console.ReadKey();
+            Console.ReadLine();
             Service.Close();
             Shutdown();
         }
@@ -73,6 +79,29 @@ namespace GenericServiceHost
             Service = new ServiceHost(typeof(Logic));
             Service.Faulted += Service_Faulted;
             Service.Open();
+        }
+        static void Connecting(NetworkClient client)
+        {
+            Kernel.WriteLine("Connection attempted from: " + client.IP, ConsoleColor.DarkGreen);
+            Kernel.ConnectedClients.TryAdd(client.IP,client);
+        }
+        static void Receiving(NetworkClient client, byte[] packet)
+        {
+            foreach (var connectedClient in Kernel.ConnectedClients.Values)
+            {
+                Console.WriteLine(Encoding.UTF8.GetString(packet));
+                connectedClient.Send(packet);
+            }
+        }
+        static void Disconnecting(NetworkClient client)
+        {
+            Kernel.WriteLine("Connection lost from: " + client.IP, ConsoleColor.Red);
+            if (Kernel.ConnectedClients.ContainsKey(client.IP))
+            {
+                NetworkClient cli;
+                Kernel.ConnectedClients.TryRemove(client.IP,out cli);
+            }
+            client.Disconnect();
         }
     }
 }

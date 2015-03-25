@@ -11,7 +11,7 @@
 
     <xctk:BusyIndicator Name="BusyIndicator" IsBusy="False">
         <Grid>
-            <Image Name="Image" Stretch="Fill" Margin="0,0,0,214" HorizontalAlignment="Left" Width="597"/>
+            <Rectangle Name="Image" Stretch="Fill" Margin="0,0,0,214" HorizontalAlignment="Left" Width="597"/>
             <StackPanel Margin="597,0,0,0" Height="563" VerticalAlignment="Top">
                 <TextBlock TextWrapping="Wrap" Text="Author" FontFamily="Segoe WP Semibold" FontSize="18.667"/>
                 <TextBlock Name="AuthorTxtbx" TextWrapping="Wrap" Height="20"><Run Text="BitFlash, LLC."/><LineBreak/><Run/></TextBlock>

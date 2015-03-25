@@ -144,19 +144,33 @@ namespace VOTCClient.Pages
 
         private async void StoreItemLoaded(object sender, RoutedEventArgs e)
         {
-            var bitmap = new BitmapImage();
-            bitmap.BeginInit();
             try
             {
-                bitmap.UriSource = new Uri(await StoreCache.CacheLookup((((StackPanel) e.Source).Children[1] as TextBlock)?.Text), UriKind.RelativeOrAbsolute);
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                string imageFilePath = "";
+                try
+                {
+                    imageFilePath = await StoreCache.CacheLookup((((StackPanel) e.Source).Children[1] as TextBlock)?.Text);
+                }
+                catch
+                {
+                    imageFilePath = "Ressources/script.png";
+                }
+                var stream = File.OpenRead(imageFilePath);
+                //bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = stream;
+                bitmap.EndInit();
+                stream.Close();
+                stream.Dispose();
+                var brush = new ImageBrush {Stretch = Stretch.UniformToFill, ImageSource = bitmap};
+                ((Ellipse) ((StackPanel) e.Source).Children[0]).Fill = brush;
             }
-            catch
+            catch (Exception exception)
             {
-                bitmap.UriSource = new Uri("Ressources/script.png", UriKind.Relative);
+                Console.WriteLine(exception);
             }
-            bitmap.EndInit();
-            var brush = new ImageBrush {Stretch = Stretch.UniformToFill, ImageSource = bitmap};
-            ((Ellipse) ((StackPanel) e.Source).Children[0]).Fill = brush;
         }
     }
 }

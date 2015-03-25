@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using VOTCClient.Core;
+using VOTCClient.Core.Cache;
 using VOTCClient.Pages;
 
 /*
@@ -35,6 +36,7 @@ namespace VOTCClient.Windows
         {
             if (Content.GetType() != typeof(StoreDetailView))
             {
+                StoreCache.Clear();
                 Kernel.StoreWindow = null;
                 GC.Collect();
                 return;

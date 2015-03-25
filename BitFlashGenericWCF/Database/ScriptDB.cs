@@ -49,7 +49,7 @@ namespace BitFlashGenericWCF.Database
             Kernel.WriteLine("[AutoSave] Saving Script...", ConsoleColor.Cyan);
             foreach (var scriptFile in Kernel.AllScripts)
             {
-                File.WriteAllText(scriptFile.Key, JsonConvert.SerializeObject(scriptFile.Value));
+                File.WriteAllText(Path.Combine(Kernel.ScriptLocation, scriptFile.Key), JsonConvert.SerializeObject(scriptFile.Value));
             }
             Kernel.WriteLine("[AutoSave] Saved all Scripts!", ConsoleColor.Cyan);
         }
