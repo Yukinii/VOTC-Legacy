@@ -127,7 +127,7 @@ namespace VOTCClient.Pages
             try
             {
                 if (Kernel.Channel == null)
-                    Kernel.Channel = new LogicClient("MetadataExchangeHttpBinding_ILogic", "http://localhost/RemoteExecute/mex");
+                    Kernel.Channel = new LogicClient("MetadataExchangeHttpBinding_ILogic", "http://eubfwcf.cloudapp.net/RemoteExecute/mex");
 
                 if (sender != null && e != null)
                 {

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using TweetSharp;
 using VOTCClient.Core;
@@ -28,15 +29,23 @@ namespace VOTCClient.Pages
             InitializeComponent();
         }
         OAuthRequestToken _requestToken;
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Kernel.TwitterClient != null)
-                return;
-            Kernel.TwitterClient = new TwitterService("bcPdqSrMo2zSoLRjvE20Z2B93", "2DPgdd0qqnpOxbglUMWs4okLjNL3IMgbuQezLCgwMr1XH4kYpw");
+            try
+            {
+                if (Kernel.TwitterClient != null)
+                    return;
+                Kernel.TwitterClient = new TwitterService("bcPdqSrMo2zSoLRjvE20Z2B93", "2DPgdd0qqnpOxbglUMWs4okLjNL3IMgbuQezLCgwMr1XH4kYpw");
 
-            _requestToken = Kernel.TwitterClient.GetRequestToken();
-            var authUrl = Kernel.TwitterClient.GetAuthorizationUri(_requestToken).ToString();
-            Webbrowser.Navigate(authUrl);
+                _requestToken = Kernel.TwitterClient.GetRequestToken();
+                var authUrl = Kernel.TwitterClient.GetAuthorizationUri(_requestToken).ToString();
+                Webbrowser.Navigate(authUrl);
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message);
+            }
         }
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)

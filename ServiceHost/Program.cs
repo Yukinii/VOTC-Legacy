@@ -2,6 +2,8 @@
 using System.ServiceModel;
 using BitFlashGenericWCF;
 using BitFlashGenericWCF.Database;
+using BitFlashGenericWCF.Tracking;
+
 /*
     This file is part of VOTC.
 
@@ -34,7 +36,8 @@ namespace GenericServiceHost
             {
                 API.Initialize(); //Basic security layer, each request has to contain a valid API Key
                 ScriptDb.LoadScripts();
-                Console.Title ="BitFlash Generic WCF Service Host";
+                TrackingListener.Init();
+                Console.Title ="BitFlash VOTC Service Host";
                 Service = new ServiceHost(typeof (Logic));//Everything thats used to configure the Server is found in the App.Config
                 Service.Faulted += Service_Faulted;
                 Service.Open();
@@ -61,7 +64,7 @@ namespace GenericServiceHost
 
         private static void Shutdown()
         {
-            //Saving shit?
+            ScriptDb.SaveScripts();
         }
 
         private static void Service_Faulted(object sender, EventArgs e)
