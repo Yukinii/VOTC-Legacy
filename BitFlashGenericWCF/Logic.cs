@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using BitFlashGenericWCF.Core;
+using BitFlashGenericWCF.Database;
 using BitFlashGenericWCF.Scripts;
 /*
     This file is part of VOTC.
@@ -107,9 +108,9 @@ namespace BitFlashGenericWCF
                 Kernel.ChatMessages.RemoveAt(20);
         }
         
-        public List<string> GetChatMessages()
+        public string GetQuote()
         {
-            return Kernel.ChatMessages;
+            return Quotes.GetRandom();
         }
     }
 }

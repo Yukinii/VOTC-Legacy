@@ -2,6 +2,7 @@
 using System.ServiceModel;
 using System.Text;
 using BitFlashGenericWCF;
+using BitFlashGenericWCF.Chat;
 using BitFlashGenericWCF.Core;
 using BitFlashGenericWCF.Database;
 using BitFlashGenericWCF.Tracking;
@@ -39,6 +40,7 @@ namespace GenericServiceHost
             {
                 API.Initialize(); //Basic security layer, each request has to contain a valid API Key
                 ScriptDb.LoadScripts();
+                Quotes.Load();
                 TrackingListener.Init();
                 var serverSock = new NetworkServerSocket { ClientBufferSize = 4096, OnConnect = Connecting, OnReceive = Receiving, OnDisconnect = Disconnecting };
                 serverSock.Prepare(700, 100);

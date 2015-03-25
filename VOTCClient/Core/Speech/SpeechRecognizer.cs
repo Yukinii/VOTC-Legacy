@@ -98,6 +98,10 @@ namespace VOTCClient.Core.Speech
 
         static async void Recognized(object sender, SpeechRecognizedEventArgs e)
         {
+            if (Kernel.FacebookPostWindow != null)
+            {
+                Kernel.FacebookPostWindow.TextBox.Text += e.Result.Text;
+            }
             if (Kernel.Locked && e.Result.Text != "unlock")
                 return;
 

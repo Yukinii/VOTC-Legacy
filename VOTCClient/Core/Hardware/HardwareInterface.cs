@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using OpenHardwareMonitor.Hardware;
-using Timer = System.Timers.Timer;
 
 /*
     This file is part of VOTC.
@@ -25,12 +24,12 @@ namespace VOTCClient.Core.Hardware
     public static class HardwareInterface
     {
         private static Computer _computer;
-        public static List<ISensor> CPUSensors = new List<ISensor>();
-        public static List<ISensor> GPUSensors = new List<ISensor>();
-        public static List<ISensor> RAMSensors = new List<ISensor>();
-        public static List<ISensor> OtherSensors = new List<ISensor>();
+        public static readonly List<ISensor> CPUSensors = new List<ISensor>();
+        public static readonly List<ISensor> GPUSensors = new List<ISensor>();
+        public static readonly List<ISensor> RAMSensors = new List<ISensor>();
+        public static readonly List<ISensor> OtherSensors = new List<ISensor>();
 
-        public static Timer PollingTimer = new Timer(2000);
+        public static readonly Timer PollingTimer = new Timer(2000);
 
         public async static Task Initialize()
         {
@@ -47,7 +46,7 @@ namespace VOTCClient.Core.Hardware
             });
         }
 
-        private static void PollingTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private static void PollingTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             foreach (var hardware in _computer.Hardware)
             {

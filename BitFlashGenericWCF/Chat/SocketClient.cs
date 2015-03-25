@@ -2,38 +2,38 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using VOTCServer.Socket;
 
-namespace VOTCServer.Socket
+namespace BitFlashGenericWCF.Chat
 {
     public class NetworkClient
     {
         private readonly byte[] _buffer;
-        public readonly System.Net.Sockets.Socket Socket;
-        public readonly NetworkServerSocket Server;
-        public object Owner;
+        private readonly Socket _socket;
+        private readonly NetworkServerSocket _server;
         public readonly string IP;
         public bool Alive;
 
-        public NetworkClient(NetworkServerSocket server, System.Net.Sockets.Socket socket, int bufferLen)
+        public NetworkClient(NetworkServerSocket server, Socket socket, int bufferLen)
         {
             Alive = true;
-            Server = server;
-            Socket = socket;
+            _server = server;
+            _socket = socket;
             _buffer = new byte[bufferLen];
-            IP = (Socket.RemoteEndPoint as IPEndPoint)?.Address.ToString();
+            IP = (_socket.RemoteEndPoint as IPEndPoint)?.Address.ToString();
         }
         public void BeginReceive()
         {
-            Socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, Receive, null);
+            _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, Receive, null);
         }
         private void Receive(IAsyncResult res)
         {
             try
             {
-                if (Socket == null)
+                if (_socket == null)
                     return;
 
-                var len = Socket.EndReceive(res);
+                var len = _socket.EndReceive(res);
 
                 if (!Alive)
                     return;
@@ -42,29 +42,29 @@ namespace VOTCServer.Socket
                 {
                     var received = new byte[len];
                     Buffer.BlockCopy(_buffer, 0, received, 0, len);
-                    Server.OnReceive?.Invoke(this, received);
+                    _server.OnReceive?.Invoke(this, received);
                     BeginReceive();
                 }
                 else
                 {
-                    Server.InvokeDisconnect(this);
+                    _server.InvokeDisconnect(this);
                 }
             }
             catch
             {
-                Server.InvokeDisconnect(this);
+                _server.InvokeDisconnect(this);
             }
         }
         public async void Send(byte[] packet)
         {
             if (packet == null) throw new ArgumentNullException("packet");
             if (Alive)
-                await Task.Factory.FromAsync(Socket.BeginSend(packet, 0, packet.Length, SocketFlags.None, null, Socket), Socket.EndSend);
+                await Task.Factory.FromAsync(_socket.BeginSend(packet, 0, packet.Length, SocketFlags.None, null, _socket), _socket.EndSend);
         }
 
         public void Disconnect()
         {
-            Socket.Disconnect(false);
+            _socket.Disconnect(false);
         }
     }
 }

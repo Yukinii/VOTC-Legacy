@@ -1,7 +1,7 @@
 ﻿<Window x:Class="VOTCClient.Windows.BuiltInCommands"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="BuiltInCommands" Height="300" Width="680.899">
+        Title="BuiltInCommands" Height="300" Width="680.899" Closing="BuiltInCommands_OnClosing">
     <Grid>
         <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <StackPanel Name="Panel">

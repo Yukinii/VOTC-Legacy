@@ -21,7 +21,7 @@ using System.Windows;
 */
 namespace VOTCClient.Core.Speech
 {
-    public class TextToSpeech
+    public static class TextToSpeech
     {
         private static int _volume;
         private static int _speed;

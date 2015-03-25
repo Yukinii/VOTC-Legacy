@@ -42,7 +42,7 @@ namespace VOTCClient.Core.Cache
                 }
                 return "Cache\\Store\\" + name + ".badge";
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "";
             }

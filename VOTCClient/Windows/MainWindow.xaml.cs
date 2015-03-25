@@ -14,6 +14,7 @@ using VOTCClient.Core.Error;
 using VOTCClient.Core.Extensions;
 using VOTCClient.Core.External.Chatbot;
 using VOTCClient.Core.Network;
+using VOTCClient.Core.Sounds;
 using VOTCClient.Core.Speech;
 using VOTCClient.Pages;
 using Keyboard = InputManager.Keyboard;
@@ -56,15 +57,14 @@ namespace VOTCClient.Windows
                 MessageBox.Show("I will probably not work if you don't start me with Admin rights. (Right click VOTCClient.exe, then pick run as administrator)", "ERROR");
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if (Kernel.Channel == null)
+                Kernel.Channel = new LogicClient("MetadataExchangeHttpBinding_ILogic", "http://eubfwcf.cloudapp.net/RemoteExecute/mex");
             TextToSpeech.PrepareTextToSpeech();
             Keyboard.KeyPress(Keys.Alt);
             Kernel.Music = Directory.EnumerateFiles(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "*.mp3").ToList();
-
             var remove = Kernel.Music.Where(entry => entry.Contains("AlbumArt_")).ToList();
-
-
             foreach (var entry in remove)
             {
                 Kernel.Music.Remove(entry);
@@ -86,7 +86,7 @@ namespace VOTCClient.Windows
                 Kernel.CustomName = Interaction.InputBox("How do you want to be called?", "Chose your name", "Chief");
             
             Kernel.UI.DisplayCmd("READY!");
-            TextToSpeech.Speak("A I Initialized! Hello " + Kernel.CustomName + " I hope you had a nice day so far, well then, shall we start?");
+            TextToSpeech.Speak(await Kernel.Channel.GetQuoteAsync());
         }
 
         private static void WatchedogEvent(object sender, FileSystemEventArgs e)
@@ -140,9 +140,17 @@ namespace VOTCClient.Windows
 
         private void Window_LocationChanged(object sender, EventArgs e)
         {
-            if (Kernel.ChatWindow == null) return;
-            Kernel.ChatWindow.Top = Top + Height-8;
-            Kernel.ChatWindow.Left = Left+8;
+            if (Kernel.ChatWindow != null)
+            {
+                Kernel.ChatWindow.Top = Top + Height - 8;
+                Kernel.ChatWindow.Left = Left + 8;
+            }
+            if (Kernel.CommandWindow != null)
+            {
+                Kernel.CommandWindow.Width = Width;
+                Kernel.CommandWindow.Top = Top - Kernel.CommandWindow.Height + 8;
+                Kernel.CommandWindow.Left = Left;
+            }
         }
     }
 }

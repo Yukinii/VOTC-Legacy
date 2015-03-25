@@ -94,10 +94,10 @@ namespace VOTCClient.Core.Network.WCF
         [OperationContractAttribute(Action = "http://tempuri.org/ILogic/PostChatMessage", ReplyAction = "http://tempuri.org/ILogic/PostChatMessageResponse")]
         Task PostChatMessageAsync(string json);
 
-        [OperationContractAttribute(Action = "http://tempuri.org/ILogic/GetChatMessages", ReplyAction = "http://tempuri.org/ILogic/GetChatMessagesResponse")]
-        string[] GetChatMessages();
+        [OperationContractAttribute(Action = "http://tempuri.org/ILogic/GetQuote", ReplyAction = "http://tempuri.org/ILogic/GetQuoteResponse")]
+        string GetQuote();
 
-        [OperationContractAttribute(Action = "http://tempuri.org/ILogic/GetChatMessages", ReplyAction = "http://tempuri.org/ILogic/GetChatMessagesResponse")]
-        Task<string[]> GetChatMessagesAsync();
+        [OperationContractAttribute(Action = "http://tempuri.org/ILogic/GetQuote", ReplyAction = "http://tempuri.org/ILogic/GetQuoteResponse")]
+        Task<string> GetQuoteAsync();
     }
 }

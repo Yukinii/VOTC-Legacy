@@ -3,6 +3,8 @@ using System.Speech.Recognition;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using VOTCClient.Core.External.Chatbot;
+using VOTCClient.Core.Hardware;
+using VOTCClient.Windows;
 
 /*
     This file is part of VOTC.
@@ -41,7 +43,7 @@ namespace VOTCClient.Core.Speech
                 {
 
                 }
-                if (ExecuteInternalCommand(input))
+                if (await ExecuteInternalCommand(input))
                     return true;
 
                 if (Kernel.ChatBotActive)
@@ -61,12 +63,27 @@ namespace VOTCClient.Core.Speech
             }
         }
 
-        private static bool ExecuteInternalCommand(string input)
+        private static async Task<bool> ExecuteInternalCommand(string input)
         {
 
             switch (input.ToLower())
             {
-
+                case "face book":
+                {
+                    Kernel.FacebookPostWindow = new FacebookPost();
+                    Kernel.FacebookPostWindow.Show();
+                    break;
+                }
+                case "post":
+                {
+                    if (Kernel.FacebookPostWindow != null)
+                    {
+                        Kernel.FacebookPostWindow.Post();
+                        Kernel.FacebookPostWindow.Close();
+                        Kernel.FacebookPostWindow = null;
+                    }
+                    break;
+                }
                 case "lock":
                 {
                     Kernel.Locked = true;
@@ -123,6 +140,7 @@ namespace VOTCClient.Core.Speech
                         Kernel.Playlist.Resume();
                         break;
                     }
+                case "volume down":
                 case "turn down volume":
                 {
                     TextToSpeech.Speak("Turn down for what?");
@@ -134,6 +152,7 @@ namespace VOTCClient.Core.Speech
                     }
                     return true;
                 }
+                case "volume up":
                 case "turn up volume":
                 {
                     if (Kernel.Playlist.Volume + 10 < 100)
@@ -156,6 +175,17 @@ namespace VOTCClient.Core.Speech
                 {
                     Kernel.Playlist.Stop();
                     return true;
+                }
+                case "system check":
+                {
+                    TextToSpeech.Speak("Running a system check...");
+                    TextToSpeech.Speak("C P U Temp " + await CPU.GetTempAsync() + " degrees");
+                    TextToSpeech.Speak("G P U Temp " + await GPU.GetTempAsync() + " degrees");
+                    TextToSpeech.Speak("CPU Utilization " + await CPU.GetLoadAsync() + " percent");
+                    TextToSpeech.Speak("GPU Utilization " + await GPU.GetLoadAsync() + " percent");
+                    TextToSpeech.Speak("RAM Utilization " + await RAM.GetUsedMemoryAsync() + " percent");
+                    TextToSpeech.Speak("All sensors green " + Kernel.CustomName);
+                    break;
                 }
                 case "i accept lord gaben into my wallet":
                 {

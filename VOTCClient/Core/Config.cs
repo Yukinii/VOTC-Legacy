@@ -23,7 +23,7 @@ namespace VOTCClient.Core
 {
     public static class Config
     {
-        public static readonly IniFile File = new IniFile("Config.ini");
+        private static readonly IniFile File = new IniFile("Config.ini");
         public static void LoadConfig()
         {
             Kernel.EnableDeleteMusicVoiceCommand = File.GetBool("Config", "EnableDeleteMusicVoiceCommand", false);

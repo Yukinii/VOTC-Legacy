@@ -59,7 +59,7 @@ namespace VOTCClient.Core
         #endregion
 
         public static readonly KeyboardHook KeyboardHook = new KeyboardHook();
-        public static readonly Random Random = new Random(Environment.TickCount);
+        public static readonly Random Random = new Random();
 
         internal static volatile bool KeepThreadsRunning = true;
         internal static volatile bool Ready;
@@ -99,7 +99,7 @@ namespace VOTCClient.Core
         internal static ProfileLoadWindow ProfileWindow;
         internal static ScriptUploader ScriptUploaderWindow;
 
-        public static readonly Playlist Playlist=new Playlist();
+        public static Playlist Playlist =new Playlist();
 
         internal static ScriptEngine UserScriptEngine;
         internal static ScriptInfo ScriptInfos;
@@ -150,6 +150,7 @@ namespace VOTCClient.Core
         }
 
         public static LogicClient Channel { get; set; }
+        public static BuiltInCommands CommandWindow { get; set; }
 
         public static bool IsInGame(string gameName)
         {

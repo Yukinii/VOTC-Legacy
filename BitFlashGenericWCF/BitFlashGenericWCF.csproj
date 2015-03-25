@@ -72,6 +72,7 @@
     <Compile Include="Chat\SocketEvents.cs" />
     <Compile Include="Core\Extensions.cs" />
     <Compile Include="Core\Kernel.cs" />
+    <Compile Include="Database\Quotes.cs" />
     <Compile Include="Database\ScriptDB.cs" />
     <Compile Include="ILogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

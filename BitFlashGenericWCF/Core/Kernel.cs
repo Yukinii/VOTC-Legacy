@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using BitFlashGenericWCF.Chat;
 using BitFlashGenericWCF.Scripts;
 using VOTCServer.Socket;
 

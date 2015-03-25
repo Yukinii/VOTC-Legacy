@@ -80,6 +80,6 @@ namespace BitFlashGenericWCF
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        List<string> GetChatMessages();
+        string GetQuote();
     }
 }

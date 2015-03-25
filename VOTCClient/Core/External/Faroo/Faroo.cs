@@ -24,7 +24,7 @@ using VOTCClient.Core.Speech;
 */
 namespace VOTCClient.Core.External.Faroo
 {
-    public class Faroo
+    public static class Faroo
     {
         public static async Task Test()
         {

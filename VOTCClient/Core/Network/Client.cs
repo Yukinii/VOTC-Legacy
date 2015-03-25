@@ -154,14 +154,14 @@ namespace VOTCClient.Core.Network
             return Channel.PostChatMessageAsync(json);
         }
 
-        public string[] GetChatMessages()
+        public string GetQuote()
         {
-            return Channel.GetChatMessages();
+            return Channel.GetQuote();
         }
 
-        public Task<string[]> GetChatMessagesAsync()
+        public Task<string> GetQuoteAsync()
         {
-            return Channel.GetChatMessagesAsync();
+            return Channel.GetQuoteAsync();
         }
     }
 }

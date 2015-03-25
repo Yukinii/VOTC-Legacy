@@ -32,13 +32,6 @@ namespace VOTCClient.Windows
             Kernel.FacebookPostWindow = this;
         }
 
-        public FacebookPost(string input)
-        {
-            _input = input.Remove(0, 10);
-            InitializeComponent();
-            Kernel.FacebookPostWindow = this;
-        }
-
         private void image_Loaded(object sender, RoutedEventArgs e)
         {
             if(Kernel.ProfilePicture == null)
@@ -64,9 +57,16 @@ namespace VOTCClient.Windows
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (TextBox.Text == "TextBox")
+            if (TextBox.Text.ToLowerInvariant() == "post")
                 return;
-            _input = TextBox.Text;
+            if (TextBox.Text.ToLowerInvariant().Contains("clear face book"))
+                _input = (TextBox.Text = "");
+            _input += TextBox.Text;
+        }
+
+        public void Post()
+        {
+            Kernel.FacebookClient.Post("me/feed", new { message = _input });
         }
     }
 }

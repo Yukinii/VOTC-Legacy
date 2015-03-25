@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using BitFlashGenericWCF.Chat;
 
 namespace VOTCServer.Socket
 {

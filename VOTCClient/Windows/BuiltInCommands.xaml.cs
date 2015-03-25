@@ -14,6 +14,10 @@
     You should have received a copy of the GNU General Public License
     along with VOTC.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+using System.ComponentModel;
+using VOTCClient.Core;
+
 namespace VOTCClient.Windows
 {
     /// <summary>
@@ -24,6 +28,12 @@ namespace VOTCClient.Windows
         public BuiltInCommands()
         {
             InitializeComponent();
+            Kernel.CommandWindow = this;
+        }
+
+        private void BuiltInCommands_OnClosing(object sender, CancelEventArgs e)
+        {
+            Kernel.CommandWindow = null;
         }
     }
 }

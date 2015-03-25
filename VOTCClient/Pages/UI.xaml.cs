@@ -127,9 +127,6 @@ namespace VOTCClient.Pages
             DisplayCmd("If you're new, go to the store and download one!");
             try
             {
-                if (Kernel.Channel == null)
-                    Kernel.Channel = new LogicClient("MetadataExchangeHttpBinding_ILogic", "http://eubfwcf.cloudapp.net/RemoteExecute/mex");
-
                 if (sender != null && e != null)
                 {
                     await Task.Run(async () =>
@@ -224,7 +221,7 @@ namespace VOTCClient.Pages
         private void builtin_click(object sender, RoutedEventArgs e)
         {
             var box = new BuiltInCommands();
-            box.ShowDialog();
+            box.Show();
         }
 
         private void Changelog_Click(object sender, RoutedEventArgs e)
@@ -266,9 +263,9 @@ namespace VOTCClient.Pages
             MessageBox.Show(await CPU.GetTempAsync() + "°C");
         }
 
-        private async void DB2_Click(object sender, RoutedEventArgs e)
+        private async void Smart_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show((await Kernel.Channel.GetNewestScriptsAsync("-")).FirstOrDefault());
+            TextToSpeech.Speak(await Kernel.Channel.GetQuoteAsync());
         }
     }
 }

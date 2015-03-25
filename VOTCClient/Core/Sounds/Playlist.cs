@@ -5,7 +5,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.Integration;
 using System.Windows.Threading;
+using AxWMPLib;
 using VOTCClient.Core.Speech;
 using WMPLib;
 
@@ -32,23 +34,27 @@ namespace VOTCClient.Core.Sounds
     {
         public bool PlayCustomSounds { get; internal set; }
 
-        bool _songEnded = true;
-        readonly Timer _checkSong;
+        public bool SongEnded { get; private set; } = true;
+        public Timer CheckSong { get; }
         public List<string> SongsInPlaylist = new List<string>();
-        int _index;
-        readonly WindowsMediaPlayer _mediaPlayer;
+        public int Index { get; private set; }
+        public AxWindowsMediaPlayer MediaPlayer { get; }
 
         internal Playlist()
         {
             try
             {
-                _mediaPlayer = new WindowsMediaPlayer();
-                //_MediaPlayer.CreateControl();
+                if (MediaPlayer != null)
+                    return;
+                var host = new WindowsFormsHost();
+                MediaPlayer = new AxWindowsMediaPlayer();
+                host.Child = MediaPlayer;
+                MediaPlayer.CreateControl();
                 IContainer playComponents = new Container();
-                _checkSong = new Timer(playComponents);
-                _checkSong.Tick += CheckSong_Tick;
-                _checkSong.Interval = 500;
-                _mediaPlayer.PlayStateChange += MediaPlayer_PlayStateChange;
+                CheckSong = new Timer(playComponents);
+                CheckSong.Tick += CheckSong_Tick;
+                CheckSong.Interval = 500;
+                MediaPlayer.PlayStateChange += MediaPlayer_PlayStateChange;
                 Play();
             }
             catch
@@ -71,20 +77,20 @@ I'll show you how to install it, please install it asap. VOTC might be really un
         public void AddSong(string song)
         {
             SongsInPlaylist.Add(song);
-            if(_mediaPlayer == null)
+            if(MediaPlayer == null)
                 return;
-            if (_mediaPlayer.playState != WMPPlayState.wmppsPlaying)
+            if (MediaPlayer.playState != WMPPlayState.wmppsPlaying)
                 NextSong();
         }
 
         public async void DeleteSong()
         {
-            if (_mediaPlayer == null)
+            if (MediaPlayer == null)
                 return;
             await Task.Run(() =>
             {
                 TextToSpeech.Speak("Hacking file permissions. ");
-                var path = _mediaPlayer.URL;
+                var path = MediaPlayer.URL;
                 SongsInPlaylist.Remove(path);
                 File.Delete(path);
                 TextToSpeech.Speak("File Deleted!");
@@ -93,124 +99,123 @@ I'll show you how to install it, please install it asap. VOTC might be really un
 
         public void DeletePlaylist()
         {
-            _mediaPlayer?.controls.stop();
+            MediaPlayer?.Ctlcontrols.stop();
             SongsInPlaylist.Clear();
-            _index = 0;
+            Index = 0;
         }
-
         internal int Volume
         {
             set
             {
-                if (_mediaPlayer != null)
-                    _mediaPlayer.settings.volume = value;
+                if (MediaPlayer != null)
+                    MediaPlayer.settings.volume = value;
             }
-            get { return _mediaPlayer?.settings.volume ?? 0; }
+            get { return MediaPlayer?.settings.volume ?? 0; }
         }
 
         public void Play()
         {
-            if (_mediaPlayer == null)
+            if (MediaPlayer == null)
                 return;
             if (SongsInPlaylist.Count <= 0) return;
-            if (SongsInPlaylist[_index] != null)
+            if (SongsInPlaylist[Index] != null)
             {
-                _mediaPlayer.URL = SongsInPlaylist[_index];
+                MediaPlayer.URL = SongsInPlaylist[Index];
             }
         }
         public void Play(int slot)
         {
-            if (_mediaPlayer == null)
+            if (MediaPlayer == null)
                 return;
             if (SongsInPlaylist[slot - 1] != null)
-                _mediaPlayer.URL = SongsInPlaylist[slot - 1];
+                MediaPlayer.URL = SongsInPlaylist[slot - 1];
         }
         public void Play(string name)
         {
-            if (_mediaPlayer == null)
+            if (MediaPlayer == null)
                 return;
             var slot = SongsInPlaylist.BinarySearch(name, null);
             if (slot >= 0 && slot < SongsInPlaylist.Count)
             {
-                _mediaPlayer.URL = SongsInPlaylist[slot];
+                MediaPlayer.URL = SongsInPlaylist[slot];
             }
             else
             {
                 AddSong(name);
-                _mediaPlayer.URL = name;
+                MediaPlayer.URL = name;
             }
         }
 
-        public void Pause() => _mediaPlayer?.controls.pause();
+        public void Pause() => MediaPlayer?.Ctlcontrols.pause();
 
-        public void Resume() => _mediaPlayer?.controls.play();
+        public void Resume() => MediaPlayer?.Ctlcontrols.play();
 
-        public void Stop() => _mediaPlayer?.controls.stop();
+        public void Stop() => MediaPlayer?.Ctlcontrols.stop();
 
         public void NextSong()
         {
-            if (_mediaPlayer == null)
+            if (MediaPlayer == null)
                 return;
-            if (_index == SongsInPlaylist.Count - 1)
+            if (Index == SongsInPlaylist.Count - 1)
                 return;
 
-            _index++;
-            _mediaPlayer.controls.stop();
-            _mediaPlayer.URL = SongsInPlaylist[_index];
-            _mediaPlayer.controls.play();
+            Index++;
+            MediaPlayer.Ctlcontrols.stop();
+            MediaPlayer.URL = SongsInPlaylist[Index];
+            MediaPlayer.Ctlcontrols.play();
         }
 
-        public string GetCurrentMediaNameWithoutExtension() => Path.GetFileNameWithoutExtension(_mediaPlayer.URL);
+        public string GetCurrentMediaNameWithoutExtension() => Path.GetFileNameWithoutExtension(MediaPlayer.URL);
 
-        public string GetCurrentMediaName() => Path.GetFileName(_mediaPlayer.URL);
+        public string GetCurrentMediaName() => Path.GetFileName(MediaPlayer.URL);
 
         public void PrevSong()
         {
-            if (_mediaPlayer == null)
+            if (MediaPlayer == null)
                 return;
-            if (_index != 0)
+            if (Index != 0)
             {
-                _index--;
-                _mediaPlayer.controls.stop();
-                _mediaPlayer.URL = SongsInPlaylist[_index];
-                _mediaPlayer.controls.play();
+                Index--;
+                MediaPlayer.Ctlcontrols.stop();
+                MediaPlayer.URL = SongsInPlaylist[Index];
+                MediaPlayer.Ctlcontrols.play();
             }
             else
             {
-                _index = SongsInPlaylist.Count - 1;
-                _mediaPlayer.controls.stop();
-                _mediaPlayer.URL = SongsInPlaylist[_index];
-                _mediaPlayer.controls.play();
+                Index = SongsInPlaylist.Count - 1;
+                MediaPlayer.Ctlcontrols.stop();
+                MediaPlayer.URL = SongsInPlaylist[Index];
+                MediaPlayer.Ctlcontrols.play();
             }
         }
         void CheckSong_Tick(object sender, EventArgs e)
         {
-            if (_mediaPlayer == null)
+            if (MediaPlayer == null)
                 return;
-            if (_songEnded)
+            if (SongEnded)
             {
                 NextSong();
-                _songEnded = false;
-                _checkSong.Stop();
+                SongEnded = false;
+                CheckSong.Stop();
             }
-            Kernel.UI.UpdateMediaProgress(_mediaPlayer.controls.currentPosition);
+            Kernel.UI.UpdateMediaProgress(MediaPlayer.Ctlcontrols.currentPosition);
         }
 
-        void MediaPlayer_PlayStateChange(int e)
+        void MediaPlayer_PlayStateChange(object sender, _WMPOCXEvents_PlayStateChangeEvent wmpocxEventsPlayStateChangeEvent)
         {
-            if (_mediaPlayer == null)
+            if (MediaPlayer == null)
                 return;
-            switch (_mediaPlayer.playState)
+            switch (MediaPlayer.playState)
             {
                 case WMPPlayState.wmppsPlaying:
                 {
-                    _checkSong.Start();
-                    Kernel.UI.Dispatcher.BeginInvoke(new Action(() => Kernel.UI.MusicProgressBar.Maximum = _mediaPlayer.currentMedia.duration), DispatcherPriority.Background);
+                    CheckSong.Start();
+                    Kernel.UI.Dispatcher.BeginInvoke(new Action(() => Kernel.UI.MusicProgressBar.Maximum = MediaPlayer.currentMedia.duration), DispatcherPriority.Background);
                     break;
                 }
                 case WMPPlayState.wmppsMediaEnded:
-                    _songEnded = true;
-                    _checkSong.Start();
+                    SongEnded = true;
+                    CheckSong.Start();
                     break;
             }
         }
@@ -218,7 +223,7 @@ I'll show you how to install it, please install it asap. VOTC might be really un
         public void Dispose()
         {
             GC.SuppressFinalize(this);
-            _checkSong.Dispose();
+            CheckSong.Dispose();
         }
     }
 }
