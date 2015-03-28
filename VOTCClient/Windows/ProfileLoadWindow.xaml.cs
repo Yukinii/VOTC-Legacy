@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System; //VOTC LEGACY
 using System.ComponentModel;
 using System.Windows;
 using VOTCClient.Core;

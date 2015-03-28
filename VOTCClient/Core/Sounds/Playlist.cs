@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System; //VOTC LEGACY
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -30,7 +30,7 @@ using WMPLib;
 
 namespace VOTCClient.Core.Sounds
 {
-    public class Playlist :IDisposable
+    public class Playlist : IDisposable
     {
         public bool PlayCustomSounds { get; internal set; }
 
@@ -61,11 +61,11 @@ namespace VOTCClient.Core.Sounds
             {
                 MessageBox.Show(@"
 Windows Media Player has to be installed in order for VOTC to work
-I'll show you how to install it, please install it asap. VOTC might be really unstable in this state.",@"FAIL");
+I'll show you how to install it, please install it asap. VOTC might be really unstable in this state.", @"FAIL");
                 Process.Start("http://www.wikihow.com/Reinstall-Windows-Media-Player");
             }
         }
-        
+
         public void AddSongs(IEnumerable<string> songs)
         {
             foreach (var T in songs)
@@ -77,7 +77,7 @@ I'll show you how to install it, please install it asap. VOTC might be really un
         public void AddSong(string song)
         {
             SongsInPlaylist.Add(song);
-            if(MediaPlayer == null)
+            if (MediaPlayer == null)
                 return;
             if (MediaPlayer.playState != WMPPlayState.wmppsPlaying)
                 NextSong();
@@ -89,11 +89,18 @@ I'll show you how to install it, please install it asap. VOTC might be really un
                 return;
             await Task.Run(() =>
             {
-                TextToSpeech.Speak("Hacking file permissions. ");
-                var path = MediaPlayer.URL;
-                SongsInPlaylist.Remove(path);
-                File.Delete(path);
-                TextToSpeech.Speak("File Deleted!");
+                try
+                {
+                    TextToSpeech.Speak("Hacking file permissions. ");
+                    var path = MediaPlayer.URL;
+                    SongsInPlaylist.Remove(path);
+                    File.Delete(path);
+                    TextToSpeech.Speak("File Deleted!");
+                }
+                catch (Exception e)
+                {
+                    TextToSpeech.Speak("Access denied.");
+                }
             });
         }
 
@@ -208,11 +215,11 @@ I'll show you how to install it, please install it asap. VOTC might be really un
             switch (MediaPlayer.playState)
             {
                 case WMPPlayState.wmppsPlaying:
-                {
-                    CheckSong.Start();
-                    Kernel.UI.Dispatcher.BeginInvoke(new Action(() => Kernel.UI.MusicProgressBar.Maximum = MediaPlayer.currentMedia.duration), DispatcherPriority.Background);
-                    break;
-                }
+                    {
+                        CheckSong.Start();
+                        Kernel.UI.Dispatcher.BeginInvoke(new Action(() => Kernel.UI.MusicProgressBar.Maximum = MediaPlayer.currentMedia.duration), DispatcherPriority.Background);
+                        break;
+                    }
                 case WMPPlayState.wmppsMediaEnded:
                     SongEnded = true;
                     CheckSong.Start();

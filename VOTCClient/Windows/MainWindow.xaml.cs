@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System; //VOTC LEGACY
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -59,6 +59,11 @@ namespace VOTCClient.Windows
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("You are trying to run a pre 0.1.1.0 version." +
+                            "\n\nDue to massive code changes, this version is now canceled. " +
+                            "It may still receive MANUAL updates on request but I hightly suggest to upgrade past version 0.1.1.0+" +
+                            "\n\nHave fun using VOTC, and good luck!",
+                            "This version has been discontinued");
             if (Kernel.Channel == null)
                 Kernel.Channel = new LogicClient("MetadataExchangeHttpBinding_ILogic", "http://eubfwcf.cloudapp.net/RemoteExecute/mex");
             TextToSpeech.PrepareTextToSpeech();

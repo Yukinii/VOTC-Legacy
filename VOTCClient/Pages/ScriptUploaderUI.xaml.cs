@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System; //VOTC LEGACY
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO;
@@ -93,7 +93,7 @@ namespace VOTCClient.Pages
                 }
             }
             else
-                MessageBox.Show("You need to add 'using System;' to the top your Script!", "Lol nope.");
+                MessageBox.Show("You need to add 'using System; //VOTC LEGACY' to the top your Script!", "Lol nope.");
         }
 
         private async void Headerimagebox_TextChanged(object sender, TextChangedEventArgs e)

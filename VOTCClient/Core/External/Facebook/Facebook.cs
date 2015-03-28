@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System; //VOTC LEGACY
 using VOTCClient.Core.Speech;
 
 /*

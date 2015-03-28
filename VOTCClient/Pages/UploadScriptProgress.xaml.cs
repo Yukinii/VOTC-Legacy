@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System; //VOTC LEGACY
 using System.Timers;
 using System.Windows;
 using System.Windows.Threading;

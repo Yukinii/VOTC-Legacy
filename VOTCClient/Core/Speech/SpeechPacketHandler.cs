@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System; //VOTC LEGACY
 using System.Speech.Recognition;
 using System.Threading.Tasks;
 using System.Windows.Threading;
@@ -92,7 +92,7 @@ namespace VOTCClient.Core.Speech
                 }
                 case "clear":
                 {
-                    Kernel.UI.Dispatcher.BeginInvoke(new Action(() => Kernel.UI.ListBox.Items.Clear()), DispatcherPriority.Background);
+                    await Kernel.UI.Dispatcher.BeginInvoke(new Action(() => Kernel.UI.ListBox.Items.Clear()), DispatcherPriority.Background);
                     break;
                 }
                 case "activate push to talk":

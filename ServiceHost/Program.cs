@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System; //VOTC LEGACY
 using System.ServiceModel;
 using System.Text;
 using BitFlashGenericWCF;

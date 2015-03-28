@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System; //VOTC LEGACY
 using System.Net;
 using System.Net.Sockets;
 using BitFlashGenericWCF.Chat;

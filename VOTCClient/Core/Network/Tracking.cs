@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System; //VOTC LEGACY
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
