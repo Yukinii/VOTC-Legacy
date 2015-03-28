@@ -1,4 +1,10 @@
-# VOTC
+# VOTC Legacy.
+
+THIS VERSION HAS BEEN DISCONTINUED AND YOU MAY PICK IT UP AND WORK ON IT. I WILL TRANSFER THE REPO TO YOU.
+
+Download this version (compiled for x64) https://github.com/Yukinii/VOTC-Legacy/blob/master/VOTCClient/Download%20Legacy%20Version.zip
+
+
 Voice of the Citizens - Voice Attack alternative with loads of features as for example Social Network integration and a Store.
 
 *My code is released under the GPLv3 Licence. I used third party libraries and code files in this project.*
